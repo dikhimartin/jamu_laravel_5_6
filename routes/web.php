@@ -1,0 +1,118 @@
+<?php
+use Illuminate\Support\Facades\Input;
+
+Route::get('/', 'Auth\LoginController@showLoginForm');
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm'); 
+
+
+Auth::routes();
+
+
+Route::group(array('prefix' => LaravelLocalization::setLocale() . '/admin', 'namespace' => 'Admin'), function () {
+
+	Route::get('/dashboard', 'HomeController@index')->name('home');
+
+
+	// ==> SETTING MODUL
+	// Users
+	Route::get('users',
+	[
+		'as'=>'users.index',
+		'uses'=>'UsersController@index',
+		'middleware' => ['permission:users-list|users-create|users-edit|users-delete']
+	]);
+	Route::get('/get_users_data','UsersController@get_users_data');
+	Route::get('/get_users_data_byid','UsersController@get_users_data_byid');
+	Route::post('save_users','UsersController@save_users');
+	Route::post('update_users','UsersController@update_users');
+	Route::post('deleted_users','UsersController@deleted_users');
+
+
+	// Module Profile & Setting
+	Route::get('/my_profile','SettingController@my_profile');
+	Route::post('/update_profile','SettingController@update_profile');
+	Route::post('/update_password_profile','SettingController@update_password_profile');
+	Route::post('/UpdateInlineName',  'SettingController@UpdateInlineName');
+	Route::post('/UpdateInlineEmail',  'SettingController@UpdateInlineEmail');
+	Route::post('/UpdateInlineTelephone',  'SettingController@UpdateInlineTelephone');
+	Route::post('/UpdateInlineAddress',  'SettingController@UpdateInlineAddress');
+
+	// Role module
+	Route::get('roles',
+	[
+		'as'=>'roles.index',
+		'uses'=>'RoleController@index',
+		'middleware' => ['permission:role-list|role-create|role-edit|role-delete']
+	] );
+
+	Route::get('roles/create',[
+		'as'=>'roles.create',
+		'uses'=>'RoleController@create',
+		'middleware' => ['permission:role-create']
+	]);
+
+	Route::get('/get_roles_byid','RoleController@get_roles_byid');
+	Route::post('roles/create',['as'=>'roles.store','uses'=>'RoleController@store','middleware' => ['permission:role-create']]);
+	Route::get('roles/{id}',['as'=>'roles.show','uses'=>'RoleController@show']);
+	Route::get('roles/{id}/edit',['as'=>'roles.edit','uses'=>'RoleController@edit','middleware' => ['permission:role-edit']]);
+	Route::patch('roles/{id}',['as'=>'roles.update','uses'=>'RoleController@update','middleware' => ['permission:role-edit']]);
+	Route::post('deleted_roles','RoleController@deleted_roles');
+
+
+
+	// SETTING GROUP USER
+	Route::get('group_user',
+	[
+		'as'=>'group_user.index',
+		'uses'=>'GroupUserController@index',
+		'middleware' => ['permission:group_user-list|group_user-create|group_user-edit|group_user-delete']
+	]);
+	Route::get('/get_group_user_data','GroupUserController@get_group_user_data');
+	Route::get('/get_group_user_data_byid','GroupUserController@get_group_user_data_byid');
+	Route::post('/group_user/save','GroupUserController@save');
+	Route::post('/group_user/update','GroupUserController@update');
+	Route::post('/group_user/change_status_active/{id}','GroupUserController@change_status_active');
+	Route::post('/group_user/change_status_inactive/{id}','GroupUserController@change_status_inactive');
+	Route::post('/group_user/deleted_all/{id}','GroupUserController@delete_all');
+	Route::post('/group_user/deleted','GroupUserController@delete');
+
+
+});
+
+
+// Composer Laravel
+//Clear Cache facade value:
+Route::get('/clear:cache', function() {
+    $exitCode = Artisan::call('cache:clear');
+    return '<h1>Cache facade value cleared</h1>';
+});
+
+//Reoptimized class loader:
+Route::get('/optimize', function() {
+    $exitCode = Artisan::call('optimize');
+    return '<h1>Reoptimized class loader</h1>';
+});
+
+//Route cache:
+Route::get('/route:cache', function() {
+    $exitCode = Artisan::call('route:cache');
+    return '<h1>Routes cached</h1>';
+});
+
+//Clear Route cache:
+Route::get('/route:clear', function() {
+    $exitCode = Artisan::call('route:clear');
+    return '<h1>Route cache cleared</h1>';
+});
+
+//Clear View cache:
+Route::get('/view:clear', function() {
+    $exitCode = Artisan::call('view:clear');
+    return '<h1>View cache cleared</h1>';
+});
+
+//Clear Config cache:
+Route::get('/config:cache', function() {
+    $exitCode = Artisan::call('config:cache');
+    return '<h1>Clear Config cleared</h1>';
+});
