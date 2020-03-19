@@ -476,14 +476,12 @@
                 contentType: false,
                 processData: false,
                 dataType: "JSON",
-                beforeSend: function() {
-                 $('#modal_form').modal('hide');
-                 $('.loading').show("fast");
-                },
                 success: function(data)
                 {
                     if(data.data_post) //if success close modal and reload ajax table
                         {
+                            $('.loading').show("fast");
+                            $('#modal_form').modal('hide');
                             $("#notif_success").animate({
                                     left: "+=50",
                                     height: "toggle"
