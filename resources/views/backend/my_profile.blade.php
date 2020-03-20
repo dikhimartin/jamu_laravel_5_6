@@ -421,15 +421,15 @@
                     data_result = data.data_result;
                     if (data_result.message == "update_success") {
                         $('#modals_confirm').modal('hide');
-                        swal("Finished!","Your data has been successfully changed","success");
+                        swal("{{__('main.success')}}","{{__('main.data_has_been_changed')}}","success");
                     }
                     if (data_result.message == "password_confirm_required") {
                         $('#modals_confirm').modal('show');
-                        swal("Gagal", "Silahkan mengisi terlebih dahulu kata sandi", "error");
+                        swal("{{__('main.failed')}}", "{{__('main.warning_password')}}", "error");
                     }
                     if (data_result.message == "password_false") {
                         $('#modals_confirm').modal('show');
-                        swal("Gagal", "Kata sandi anda salah", "error");
+                        swal("{{__('main.failed')}}", "{{__('main.wrong_password')}}", "error");
                     }
                 },
                 error: function (data) {

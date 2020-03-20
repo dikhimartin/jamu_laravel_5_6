@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Hash;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use DB;
+use File;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
@@ -78,7 +79,6 @@ class SettingController extends Controller
         echo json_encode($id);
     } 
 
-
     public function update_profile(Request $request){
 
         // proses_verified_password
@@ -108,8 +108,6 @@ class SettingController extends Controller
         $this->validate($request, [
             'email' => 'required|email',
         ]);
-
-
         $id_users       = Auth::user()->id_users;
         $data           = User::find($id_users);
         $data->name     = $request->names;
@@ -118,11 +116,22 @@ class SettingController extends Controller
         $data->email    = $request->email;
 
         if(!empty($request->file('image'))){
+            // delete_image
+           $path_delete = 'images/profile/'.$data->image;
+           $deleted = File::delete($path_delete);
+           $data->image = "";
+
             $file       = $request->file('image');
             $fileName   = $file->getClientOriginalName();
             $request->file('image')->move("images/profile/", $fileName);
             $data->image = $fileName;
+        }else if (empty($request->file('image'))) {
+            // delete_image
+           $path_delete = 'images/profile/'.$data->image;
+           $deleted = File::delete($path_delete);
+           $data->image = "";
         }
+        
         $data->updated_by =$id_users;
         $data->save();
 
@@ -141,7 +150,6 @@ class SettingController extends Controller
             )
         );
         echo json_encode($result);
-
     }
 
     public function check_username(Request $request){

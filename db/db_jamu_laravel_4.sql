@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 20 Mar 2020 pada 04.43
+-- Waktu pembuatan: 20 Mar 2020 pada 16.34
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.2.14
 
@@ -256,9 +256,9 @@ CREATE TABLE `ek_roles` (
 --
 
 INSERT INTO `ek_roles` (`id`, `name`, `display_name`, `description`, `status`, `created_at`, `updated_at`, `additional`) VALUES
-(1, 'Member Of Division', 'Sales', 'Sales', 'Y', '2017-06-21 01:58:15', '2020-03-20 03:38:13', ''),
-(2, 'Head of Division', 'Admin', 'Admin', 'Y', '2018-07-13 06:31:05', '2019-07-03 13:40:58', ''),
-(3, 'Super Admin', 'Super Admin', 'Super Admin', 'Y', '2019-01-18 03:27:27', '2020-03-20 03:37:56', '');
+(1, 'Member Of Division', 'Sales', 'Sales', 'Y', '2017-06-21 01:58:15', '2020-03-20 05:18:02', ''),
+(2, 'Head of Division', 'Admin', 'Admin', 'Y', '2018-07-13 06:31:05', '2020-03-20 15:14:58', ''),
+(3, 'Super Admin', 'Super Admin', 'Super Admin', 'Y', '2019-01-18 03:27:27', '2020-03-20 09:45:22', '');
 
 -- --------------------------------------------------------
 
@@ -314,9 +314,9 @@ CREATE TABLE `ek_users` (
 --
 
 INSERT INTO `ek_users` (`id_users`, `nik`, `name`, `password`, `email`, `telephone`, `date_birth`, `address`, `gender`, `id_level_user`, `image`, `remember_token`, `created_by`, `updated_by`, `created_at`, `updated_at`, `status`, `additional`) VALUES
-('K00001', 'superadmin', 'Super Admin', '$2y$10$beG1x0J/8Gk9DvgvHO579.az8lhIJj02fHR/w4nsXQyx8u83mg/im', 'dikhimartin@gmail.com', '081748334809sas', '2019-02-16', 'Bd. Silvy Kusmiran Jl. Lama Citarik No. 185 Rt. 0101 Ds. Jatireja1aa', 'L', 3, '', 'VUUxjwJ8GJcEllYFo49KDTpWOLAnRuhOTT0Wh08yX9ouiuppNhFCn6TkOOUJ', 'K00001', 'K00001', '2019-01-07 16:33:38', '2020-03-20 05:04:29', 'Y', NULL),
-('K00002', 'admin', 'Admin', '$2y$10$i6m3f/s1m8syXrub.nTamepK/UsHVCiej3jUwUZvzDLjAYezFRLwS', 'dikhi.martin@gmail.com', '085693086800', '2019-07-03', 'Ciketing Udik Rt.002/003, Bantargebang', 'P', 2, NULL, 'usFZhLNJcm2aanXVPWgGPBpEhbA09LP4w24Vz0GdJxdTD25LH6jh7URjHTdI', 'K00001', 'K00001', '2019-07-03 20:41:42', '2019-07-05 15:12:55', 'Y', NULL),
-('K00003', 'user', 'User', '$2y$10$IGXwb2SORE8Uyh6GpXguyOZNR5EW4V9hmI5sJPIlRTfQNpqfDd.Ey', 'dikhi.martin@gmail.com', '085219378505', '2019-07-03', 'Bd. Silvy Kusmiran Jl. Lama Citarik No. 185 Rt. 0101 Ds. Jatireja', 'L', 1, NULL, 'N0g2T14tf1tZs7yh4kjObFSS5a1vX5yeNBdonyQSmSYfq7WYtN1ReZybyy57', 'K00001', 'K00001', '2019-07-03 20:42:05', '2020-03-20 05:06:32', 'Y', NULL);
+('K00001', 'superadmin', 'Dikhi Martin', '$2y$10$v3ivqEF9AIS1xGxm1yDSru0PQdHxJLfnCHZoCa2SdM13/Vj5Q.TOO', 'dikhimartin@gmail.com', '081748334809', '2019-02-16', 'Bekasi', 'P', 3, '', '0Rbp8KtBUdrNUI7XH6HKLSk2QbNhi5W2OOw7Eo6pah2moO49u9IjLLKXqJQ6', 'K00001', 'K00001', '2019-01-07 16:33:38', '2020-03-20 22:33:17', 'Y', NULL),
+('K00002', 'admin', 'Admin', '$2y$10$i6m3f/s1m8syXrub.nTamepK/UsHVCiej3jUwUZvzDLjAYezFRLwS', 'dikhi.martin@gmail.com', '085693086800', '2019-07-03', 'Ciketing Udik Rt.002/003, Bantargebang', 'P', 2, NULL, 'KhExhpP6q7nMSGZrn2iY2QlBHggzgmSRmoJjb6fL5zni95lsBXFFnNbskss6', 'K00001', 'K00001', '2019-07-03 20:41:42', '2019-07-05 15:12:55', 'Y', NULL),
+('K00003', 'userman', 'User', '$2y$10$IGXwb2SORE8Uyh6GpXguyOZNR5EW4V9hmI5sJPIlRTfQNpqfDd.Ey', 'dikhi.martin@gmail.com', '085219378505', '2019-07-03', 'Bd. Silvy Kusmiran Jl. Lama Citarik No. 185 Rt. 0101 Ds. Jatireja', 'L', 1, NULL, 'N0g2T14tf1tZs7yh4kjObFSS5a1vX5yeNBdonyQSmSYfq7WYtN1ReZybyy57', 'K00001', 'K00001', '2019-07-03 20:42:05', '2020-03-20 05:06:32', 'Y', NULL);
 
 -- --------------------------------------------------------
 
@@ -418,7 +418,8 @@ ALTER TABLE `ek_role_user`
 -- Indeks untuk tabel `ek_users`
 --
 ALTER TABLE `ek_users`
-  ADD PRIMARY KEY (`id_users`) USING BTREE;
+  ADD PRIMARY KEY (`id_users`) USING BTREE,
+  ADD UNIQUE KEY `nik` (`nik`);
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
@@ -428,7 +429,7 @@ ALTER TABLE `ek_users`
 -- AUTO_INCREMENT untuk tabel `ek_group_users`
 --
 ALTER TABLE `ek_group_users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT untuk tabel `ek_migrations`
@@ -452,7 +453,7 @@ ALTER TABLE `ek_oauth_personal_access_clients`
 -- AUTO_INCREMENT untuk tabel `ek_roles`
 --
 ALTER TABLE `ek_roles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)

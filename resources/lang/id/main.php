@@ -46,6 +46,10 @@ return [
     'change_password_remarks' => 'Kata sandi tidak perlu diisi, biarkan kosong jika Anda tidak ingin mengubahnya',
     'alert_username_true' => 'Username Bisa dipakai',
     'alert_username_false' => 'Maaf, Username sudah digunakan ',
+    'failed' => 'Gagal',
+    'warning_password' => 'Silahkan mengisi terlebih dahulu kata sandi',
+    'wrong_password' => 'Kata sandi anda salah',
+    'data_has_been_changed' => 'Data Anda telah berhasil diubah',
 
     // => SETTING
     // Users
