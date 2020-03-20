@@ -23,7 +23,6 @@ Route::group(array('prefix' => LaravelLocalization::setLocale() . '/admin', 'nam
 	Route::get('/my_profile','SettingController@my_profile');
 	Route::post('/check_username','SettingController@check_username');
 	Route::post('/update_profile','SettingController@update_profile');
-	Route::post('/update_password_profile','SettingController@update_password_profile');
 	Route::post('/UpdateInlineName',  'SettingController@UpdateInlineName');
 	Route::post('/UpdateInlineEmail',  'SettingController@UpdateInlineEmail');
 	Route::post('/UpdateInlineTelephone',  'SettingController@UpdateInlineTelephone');

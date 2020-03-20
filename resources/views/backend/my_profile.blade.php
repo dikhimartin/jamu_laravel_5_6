@@ -126,10 +126,9 @@
                             <div class="form-group">
                                 <div class="bgColor">
                                     <div id="targetOuter">
-                                        <div id="targetLayer"></div>
+                                        <div id="targetLayer"><img src="{{ $image != '' ? '/images/profile/' . $image : '/images/profile/anonymous.png' }}" alt="" width="200px" height="200px" class="upload-preview " /></div>
                                             <img src="{{ URL::asset('admin_assets/assets/images/photo.png') }}"  class="icon-choose-image"/>
-
-                                            <img src="{{ $image != '' ? '/images/profile/' . $image : '/images/profile/anonymous.png' }}" alt="" width="200px" height="200px" class="upload-preview " />
+                                            
 
                                             <div class="icon-choose-image" onClick="showUploadOption()"></div>
                                                 <div id="profile-upload-option">
@@ -218,7 +217,7 @@
                                     <div class="form-group" id="name">
                                         <label class="col-lg-3 col-md-3 col-sm-3 col-xs-12" style="margin-bottom: 5px;">{{ __('main.name') }} &nbsp;<span class="required">*</span></label>
                                         <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12">
-                                            <input type="text" class="form-control" name="name" placeholder="Full Name" value="{{$name}}" autocomplete="off" />
+                                            <input type="text" class="form-control" name="names" placeholder="Full Name" value="{{$name}}" autocomplete="off" />
                                             <small class='form-control-feedback' id="alert-full-name"></small>
                                         </div>
                                     </div>
@@ -407,7 +406,7 @@
 
         function update_users() {
             var url;
-            url = "/lib/my_profile/confirm_update/";
+            url = "{{url('admin/update_profile')}}";
             // ajax adding data to database
             var formdata = new FormData($('#form_update_data_user')[0]);
 
@@ -419,15 +418,18 @@
                 processData: false,
                 dataType: "JSON",
                 success: function (data) {
-                    if (data == "true") {
+                    data_result = data.data_result;
+                    if (data_result.message == "update_success") {
                         $('#modals_confirm').modal('hide');
                         swal("Finished!","Your data has been successfully changed","success");
-                    }else if (data == "username_false") {
+                    }
+                    if (data_result.message == "password_confirm_required") {
                         $('#modals_confirm').modal('show');
-                        swal("Failed", "Your username is incorrect", "error");
-                    }else if (data == "password_false") {
+                        swal("Gagal", "Silahkan mengisi terlebih dahulu kata sandi", "error");
+                    }
+                    if (data_result.message == "password_false") {
                         $('#modals_confirm').modal('show');
-                        swal("Failed", "Your password is incorrect", "error");
+                        swal("Gagal", "Kata sandi anda salah", "error");
                     }
                 },
                 error: function (data) {
@@ -609,9 +611,6 @@
                     'X-CSRF-Token': $('input[name="_token"]').val()
                 },
             }).then(function (res) {
-
-                console.log(res);
-
                 if (res == 1) {
                     $("#username").addClass("form-group has-danger");
                     $("#alert-username").text("{{__('main.alert_username_false')}}");

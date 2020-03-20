@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use DB;
@@ -80,46 +81,67 @@ class SettingController extends Controller
 
     public function update_profile(Request $request){
 
+        // proses_verified_password
+        $password_confirm = $request->password_confirm;
+        if ($password_confirm == "") {
+                $result=array(
+                    "data_result"=>array(
+                        "class"  => "success",
+                        "message"=>"password_confirm_required"
+                    )
+                );
+                echo json_encode($result);
+                return null;
+        }
+        if (!Hash::check($password_confirm, Auth::user()->password)) {
+                $result=array(
+                    "data_result"=>array(
+                        "class"  => "success",
+                        "message"=>"password_false"
+                    )
+                );
+                echo json_encode($result);
+                return null;
+        }
 
+        // update_data
         $this->validate($request, [
             'email' => 'required|email',
         ]);
-        $names =$request->names;
-        $email =$request->email;
-        $image =$request->image;
-        $gender=$request->gender;
 
-        $id_users =Auth::user()->id_users;
-        $data = User::find($id_users);
-        $data->name = $request->names;
-        $data->gender = $request->gender;
-        $data->email = $request->email;
+
+        $id_users       = Auth::user()->id_users;
+        $data           = User::find($id_users);
+        $data->name     = $request->names;
+        $data->nik      = $request->username;
+        $data->gender   = $request->gender;
+        $data->email    = $request->email;
+
         if(!empty($request->file('image'))){
             $file       = $request->file('image');
             $fileName   = $file->getClientOriginalName();
             $request->file('image')->move("images/profile/", $fileName);
             $data->image = $fileName;
         }
-        $data->updated_by=$id_users;
+        $data->updated_by =$id_users;
         $data->save();
-        
-        return redirect(LaravelLocalization::getCurrentLocale().'/admin/my_profile')->with('message', 'success update data.');
 
-        // return redirect('dashboard//my_profile')->with('message', 'success update data.');
-    }
+        // update_password
+        if ($request->password != "" && $request->confirm_password != "") {
+            $data = User::find(Auth::user()->id_users);
+            $data->password     = bcrypt($request->password);
+            $data->updated_by   = Auth::user()->id_user;
+            $data->save();
+        }
 
-    public function update_password_profile(Request $request){
-        $data = User::find($request->id_users);
-        $data->password = bcrypt($request->password);
-        $data->updated_by=$request->id_users;
-        $data->save();
         $result=array(
-                    "data_result"=>array(
-                        "class" => "success",
-                        "message"=>"Success ! Change Password Success."
-                    )
-                );
+            "data_result"=>array(
+                "class"  => "success",
+                "message"=>"update_success"
+            )
+        );
         echo json_encode($result);
+
     }
 
     public function check_username(Request $request){
