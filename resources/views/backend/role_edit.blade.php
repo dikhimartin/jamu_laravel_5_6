@@ -37,6 +37,7 @@
         
     <div class="container-fluid">
         <div class="row ">
+            <div class="loading" style="display: none;">Loading&#8230;</div>
             <!-- Data -->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
@@ -145,7 +146,7 @@
 
                                     <div class="form-group">
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <button class="btn btn-sm btn-info" type="submit">
+                                            <button class="btn btn-sm btn-info btn-submit" type="submit">
                                                 <i class="fa fa-paper-plane"></i>&nbsp;&nbsp;{{__('main.edit')}}
                                             </button>
                                             <a href="{{ route('roles.index') }}" class="btn-sm btn waves-effect waves-light btn-secondary">
@@ -162,5 +163,19 @@
             </div>
         </div>
     </div>
-
 @endsection
+@push('js')
+    <script type="text/javascript">
+        $(".btn-submit").on("click", function () {
+            $(".loading").show("fast");
+        });    
+
+        // ceklis_data
+        function toggle(source) {
+          checkboxes = document.getElementsByName('permission[]');
+          for(var i=0, n=checkboxes.length;i<n;i++) {
+            checkboxes[i].checked = source.checked;
+          }
+        }   
+    </script>
+@endpush

@@ -33,7 +33,10 @@ return [
     'search'=>'Search',
     'user_access'=>'User Access',
     'status'=>'Status',
-
+    'showing' => 'Showing',
+    'to' => 'to',
+    'of' => 'of',
+    'records' => 'Records',
 
 
     // => SETTING

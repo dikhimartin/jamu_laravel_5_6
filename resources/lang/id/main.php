@@ -32,7 +32,10 @@ return [
     'search_by'=>'Pencarian Berdasarkan',
     'user_access'=>'Akses Pengguna',
     'status'=>'Status',
-
+    'showing' => 'Menampilkan',
+    'to' => 'sampai',
+    'of' => 'dari',
+    'records' => 'arsip',
 
 
     // => SETTING

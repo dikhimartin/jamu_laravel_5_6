@@ -177,14 +177,22 @@
                                         </td>
                                     </tr>
                                 @endforeach
-
-
-
-
                             @endif
                             </tbody>
                         </table>
                     </div>
+
+                    <!-- paginate-->
+                    <p style="margin-bottom: 40px;"></p>
+                    <div class="row">
+                        <div class="col-md-5 col-sm-5">
+                            <div>{{ __('main.showing') }} {{ ($roles->currentPage() - 1) * $roles->perPage() + 1 }} {{ __('main.to') }} {{ $roles->count() * $roles->currentPage() }} {{ __('main.of') }} {{ $roles->total() }} {{ __('main.records') }}</div>
+                        </div>
+                        <div class="col-md- col-sm-7 block-paginate">
+                            {{ $roles->appends(['roles' => $roles])->render() }}
+                        </div>
+                    </div>
+                    <p style="margin-bottom: 40px;"></p>
 
                 </div>
             </div>

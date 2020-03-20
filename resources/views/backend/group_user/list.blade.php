@@ -200,6 +200,19 @@
                             </tbody>
                         </table>
                     </div>
+                    
+                    <!-- paginate-->
+                    <p style="margin-bottom: 40px;"></p>
+                    <div class="row">
+                        <div class="col-md-5 col-sm-5">
+                            <div>{{ __('main.showing') }} {{ ($rows->currentPage() - 1) * $rows->perPage() + 1 }} {{ __('main.to') }} {{ $rows->count() * $rows->currentPage() }} {{ __('main.of') }} {{ $rows->total() }} {{ __('main.records') }}</div>
+                        </div>
+                        <div class="col-md- col-sm-7 block-paginate">
+                            {{ $rows->appends(['rows' => $rows])->render() }}
+                        </div>
+                    </div>
+                    <p style="margin-bottom: 40px;"></p>
+                    <!-- end paginate-->
 
                 </div>
             </div>
@@ -614,7 +627,7 @@
                                     $.each(post_arr, function( i,l ){
                                         $("#tr_"+l).remove();
                                     });
-                                    
+
                                     $("#notif_success").animate({
                                             left: "+=50",
                                             height: "toggle"

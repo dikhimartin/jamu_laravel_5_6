@@ -38,6 +38,7 @@
 
     <div class="container-fluid">
         <div class="row ">
+            <div class="loading" style="display: none;">Loading&#8230;</div>
             <!-- Data -->
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="card">
@@ -146,7 +147,7 @@
 
                                     <div class="form-group">
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <button class="btn btn-sm btn-info" type="submit">
+                                            <button class="btn btn-sm btn-info btn-submit" type="submit">
                                                 <i class="fa fa-paper-plane"></i>&nbsp;&nbsp;{{__('main.save')}}
                                             </button>
                                             <a href="{{ route('roles.index') }}" class="btn-sm btn waves-effect waves-light btn-secondary">
@@ -164,7 +165,30 @@
         </div>
     </div>
 
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="{{ URL::asset('admin_assets/assets/plugins/jquery/jquery.min.js') }}"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+  
+    <!-- ============================================================== -->
+    <!-- Plugins for this page -->
+    <!-- ============================================================== -->
+    <!-- Plugin JavaScript -->
+    <script src="{{ URL::asset('admin_assets/assets/plugins/moment/moment.js') }}"></script>
+    <script src="{{ URL::asset('admin_assets/assets/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js') }}"></script>
+
+    <!-- Date Picker Plugin JavaScript -->
+    <script src="{{ URL::asset('admin_assets/assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+@endsection
+
+@push('js')
     <script type="text/javascript">
+        
+        $(".btn-submit").on("click", function () {
+            $(".loading").show("fast");
+        });    
+
         // ceklis_data
         function toggle(source) {
           checkboxes = document.getElementsByName('permission[]');
@@ -173,7 +197,4 @@
           }
         }   
     </script>
-
-
-@endsection
-
+@endpush
