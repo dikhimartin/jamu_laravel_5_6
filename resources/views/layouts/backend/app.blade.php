@@ -167,7 +167,6 @@
             }
         }
     </style>
-
         
     </style>
     @yield('vendor_css')
@@ -279,6 +278,7 @@
                         'Dikhi Martin'+
                     '</a>';
         $("#copyright_footer").html(data);
+        
     </script>
 
     <script src="{{ URL::asset('admin_assets/assets/plugins/toast-master/js/jquery.toast.js') }}"></script>

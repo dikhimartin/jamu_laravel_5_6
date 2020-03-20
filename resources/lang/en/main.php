@@ -26,6 +26,7 @@ return [
     'edit_data'=>"Edit Data",
     'delete'=>"Delete",
     'password'=>'Password',
+    'password'=>'Repeat Password',
     'confirm' =>'Confirm',
     'choose'=>'Choose',
     'filter_data'=>'Data Filters',
@@ -44,6 +45,8 @@ return [
     'please_enter_password' => 'Please enter your password',
     'change_password' => 'Change Password',
     'change_password_remarks' => 'Password is not required to be filled in, just leave it blank if you dont want to change it',
+    'alert_username_true' => 'Username Correct',
+    'alert_username_false' => 'Sorry , Username is already used',
 
 
     // => SETTING

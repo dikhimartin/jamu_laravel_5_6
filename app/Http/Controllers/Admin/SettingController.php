@@ -7,6 +7,8 @@ use App\User;
 use Illuminate\Support\Facades\Auth;
 use DB;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+
+
 class SettingController extends Controller
 {
     private $controller = 'my_profile';
@@ -50,48 +52,29 @@ class SettingController extends Controller
     } 
 
     public function UpdateInlineEmail(Request $request){
-            $id= $request->pk;
-            $email = $request->value;
-            // $count = DB::table('users')->whereRAW("value LIKE '%".$position."%'")->where('id_users','!=',$id)->count();
-            // if($count)
-            //     echo "Similar position exists.";
+        $id= $request->pk;
+        $email = $request->value;
+            DB::table('users')->where('id_users',$id)
+            ->update(['email' => $email]);
 
-            // else
-            // {
-                DB::table('users')->where('id_users',$id)
-                ->update(['email' => $email]);
-                echo "1";
-            // }
+        echo json_encode($id);
     } 
 
     public function UpdateInlineTelephone(Request $request){
-            $id= $request->pk;
-            $telephone = $request->value;
-            // $count = DB::table('users')->whereRAW("value LIKE '%".$position."%'")->where('id_users','!=',$id)->count();
-            // if($count)
-            //     echo "Similar position exists.";
+        $id= $request->pk;
+        $telephone = $request->value;
+            DB::table('users')->where('id_users',$id)
+            ->update(['telephone' => $telephone]);
 
-            // else
-            // {
-                DB::table('users')->where('id_users',$id)
-                ->update(['telephone' => $telephone]);
-                echo "1";
-            // }
+        echo json_encode($id);
     } 
 
     public function UpdateInlineAddress(Request $request){
-            $id= $request->pk;
-            $address = $request->value;
-            // $count = DB::table('users')->whereRAW("value LIKE '%".$position."%'")->where('id_users','!=',$id)->count();
-            // if($count)
-            //     echo "Similar position exists.";
-
-            // else
-            // {
-                DB::table('users')->where('id_users',$id)
-                ->update(['address' => $address]);
-                echo "1";
-            // }
+        $id= $request->pk;
+        $address = $request->value;
+            DB::table('users')->where('id_users',$id)
+            ->update(['address' => $address]);
+        echo json_encode($id);
     } 
 
 
@@ -139,9 +122,38 @@ class SettingController extends Controller
         echo json_encode($result);
     }
 
+    public function check_username(Request $request){
+        $id = $request->id;
 
+        $check_username = "";
+        $result         = "";
+        $type_check     = $request->type_check;
+        $username       = $request->username;
+        $username_old   = $request->username_old;
 
+        if ($type_check == "1") {
 
+            $check_username = DB::table('users')->select('nik')
+            ->where('nik',$username)
+            ->first();
+
+        }else if ($type_check == "2") {
+
+            $check_username = DB::table('users')->select('nik')
+            ->where('nik', '=' ,$username)
+            ->where('nik', '!=' ,$username_old)
+            ->first();
+        }
+
+        // jika_ada
+        if ($check_username != "") {
+            $result = 1;
+        }else{
+            $result = 0;
+        }
+
+        echo json_encode($result);
+    }
 
 
 }

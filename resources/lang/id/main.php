@@ -26,6 +26,7 @@ return [
     'edit_data'=>"Ubah Data",
     'delete'=>"Hapus",
     'password'=>'Kata sandi',
+    'repeat_password'=>'Ketik ulang Kata sandi',
     'confirm' =>'Konfirmasi',
     'choose'=>'Pilih',
     'filter_data'=>'Filter Data',
@@ -43,7 +44,8 @@ return [
     'please_enter_password' => 'Silakan masukkan kata sandi Anda',
     'change_password' => 'Ganti kata sandi',
     'change_password_remarks' => 'Kata sandi tidak perlu diisi, biarkan kosong jika Anda tidak ingin mengubahnya',
-
+    'alert_username_true' => 'Username Bisa dipakai',
+    'alert_username_false' => 'Maaf, Username sudah digunakan ',
 
     // => SETTING
     // Users

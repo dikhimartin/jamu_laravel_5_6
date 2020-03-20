@@ -377,16 +377,19 @@
     </div>
 </form>
 
+
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="{{ URL::asset('admin_assets/assets/plugins/jquery/jquery.min.js') }}"></script>
+
 @endsection
 
 @push('js')
     <script type="text/javascript" src="{{ URL::asset('admin_assets/assets/plugins/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js') }}">
     </script>   
 
-    <script src="{{ URL::asset('admin_assets/assets/plugins/toast-master/js/jquery.toast.js') }}"></script>
-
     <script type="text/javascript">
-
 
         //type_submit
         $(".profile").on("click", function () {
@@ -437,7 +440,7 @@
                 $(".option_changes_password").show();
 
                 data = '<div class="form-group" id="password">'+
-                            '<label class="col-lg-3 col-md-3 col-sm-3 col-xs-12" style="margin-bottom: 5px;">Password</label>'+
+                            '<label class="col-lg-3 col-md-3 col-sm-3 col-xs-12" style="margin-bottom: 5px;">{{__('main.password')}}</label>'+
                             '<div class="col-lg-11 col-md-11 col-sm-11 col-xs-12">'+
                                 '<input type="password" class="form-control password" name="password" />'+
                                 '<small class="form-control-feedback" id="alert-password"></small>'+
@@ -445,7 +448,7 @@
                         '</div>'+
 
                        '<div class="form-group" id="confirm_password">'+
-                            '<label class="col-lg-3 col-md-3 col-sm-3 col-xs-12" style="margin-bottom: 5px;">Repeat Password</label>'+
+                            '<label class="col-lg-5 col-md-5 col-sm-5 col-xs-12" style="margin-bottom: 5px;">{{__('main.repeat_password')}}</label>'+
                            '<div class="col-lg-11 col-md-11 col-sm-11 col-xs-12">'+
                                 '<input type="password" class="form-control confirm_password" name="confirm_password"/>'+
                                 '<small class="form-control-feedback" id="alert-confirm-password"></small>'+
@@ -575,99 +578,102 @@
             return (true);
         }
 
-        $(function(){
-            $("select[name='status']").selectize();
-            // cek username
-            $("input[name='username']").on("submit keyup", function (e) {
+        // cek username
+        $("input[name='username']").on("submit keyup", function (e) {
+
+            var type_check     = $("input[name=type_check]").val()
+            var username       = $("input[name=username]").val()
+            var username_old   = $("input[name=username_old]").val()
 
 
-                var type_check     = $("input[name=type_check]").val()
-                var username       = $("input[name=username]").val()
-                var username_old   = $("input[name=username_old]").val()
+            $('.has-danger').removeClass( "has-danger");
+            $('.has-success').removeClass( "has-success");
+            $('.form-control-feedback').text("");
 
-                $('.has-danger').removeClass( "has-danger");
-                $('.has-success').removeClass( "has-success");
-                $('.form-control-feedback').text("");
+            var value = $("input[name='username']").val();
+            if (value.length < 5) {
+                $("#username").addClass("form-group has-danger");
+                $("#alert-username").text("Must be at least 5 characters");
+                return false;
+            }
+            $.ajax({
+                url: "{{url('admin/check_username')}}",
+                type: "POST",
+                data: {
+                        'type_check'    :type_check,
+                        'username'      :username,
+                        'username_old'  :username_old
+                      },
+                headers:
+                {
+                    'X-CSRF-Token': $('input[name="_token"]').val()
+                },
+            }).then(function (res) {
 
-                var value = $("input[name='username']").val();
-                if (value.length < 5) {
+                console.log(res);
+
+                if (res == 1) {
                     $("#username").addClass("form-group has-danger");
-                    $("#alert-username").text("Must be at least 5 characters");
-                    return false;
+                    $("#alert-username").text("{{__('main.alert_username_false')}}");
+                }else if (res == 0) {
+                    $("#username").addClass("form-group has-success");
+                    $("#alert-username").text("{{__('main.alert_username_true')}}");
                 }
-                $.ajax({
-                    url: "/lib/setting/user/check_username/",
-                    type: "POST",
-                    data: {
-                            'type_check':type_check,
-                            'username'  :username,
-                            'username_old'  :username_old
-                          },
-                }).then(function (res) {
-
-                    if (res.kode == "1") {
-                        $("#username").addClass("form-group has-danger");
-                        $("#alert-username").text("Sorry , Username is already used");
-                    }else{
-                        $("#username").addClass("form-group has-success");
-                        $("#alert-username").text("Correct username");
-                    }
-                }).catch(function (a) {
-                    alert("ERROR");
-                });
+            }).catch(function (a) {
+                alert("ERROR");
             });
-
-            $('.password, .confirm_password').on('submit keyup', function () {
-
-                $('.has-danger').removeClass( "has-danger");
-                $('.has-success').removeClass( "has-success");
-                $('.form-control-feedback').text("");
-
-                var value = $("input[name=password]").val();
-                if(value.length < 8){
-                    $("#password").addClass("form-group has-danger");
-                    $("#alert-password").text("must be at least 8 characters");
-                    return false
-                }
-                if(!/\d/.test(value)){
-                    $("#password").addClass("form-group has-danger");
-                    $("#alert-password").text("should contain at least one number");
-                    return false
-                }
-                if(!/[a-z]/.test(value)){
-                    $("#password").addClass("form-group has-danger");
-                    $("#alert-password").text("should contain at least one lower case");
-                    return false
-                }
-                if(!/[A-Z]/.test(value)){
-                    $("#password").addClass("form-group has-danger");
-                    $("#alert-password").text("should contain at least one upper case");
-                    return false
-                }
-                if(/[^0-9a-zA-Z]/.test(value)){
-                    $("#password").addClass("form-group has-danger");
-                    $("#alert-password").text("should contain at least 8 from the mentioned characters");
-                    return false
-                }
-
-                // match
-                if ($('.password').val() == $('.confirm_password').val()) {
-
-                    $("#password").addClass("form-group has-success");
-                    $("#alert-password").text("Password Match");
-
-                    $("#confirm_password").addClass("form-group has-success");
-                    $("#alert-confirm-password").text("Password Match");
-                } else {
-
-                    $("#password").addClass("form-group has-danger");
-                    $("#alert-password").text("Password Not Match");
-
-                    $("#confirm_password").addClass("form-group has-danger");
-                    $("#alert-confirm-password").text("Password Not Match");
-                }
-            });  
         });
+
+        $('.password, .confirm_password').on('submit keyup', function () {
+
+            $('.has-danger').removeClass( "has-danger");
+            $('.has-success').removeClass( "has-success");
+            $('.form-control-feedback').text("");
+
+            var value = $("input[name=password]").val();
+            if(value.length < 8){
+                $("#password").addClass("form-group has-danger");
+                $("#alert-password").text("must be at least 8 characters");
+                return false
+            }
+            if(!/\d/.test(value)){
+                $("#password").addClass("form-group has-danger");
+                $("#alert-password").text("should contain at least one number");
+                return false
+            }
+            if(!/[a-z]/.test(value)){
+                $("#password").addClass("form-group has-danger");
+                $("#alert-password").text("should contain at least one lower case");
+                return false
+            }
+            if(!/[A-Z]/.test(value)){
+                $("#password").addClass("form-group has-danger");
+                $("#alert-password").text("should contain at least one upper case");
+                return false
+            }
+            if(/[^0-9a-zA-Z]/.test(value)){
+                $("#password").addClass("form-group has-danger");
+                $("#alert-password").text("should contain at least 8 from the mentioned characters");
+                return false
+            }
+
+            // match
+            if ($('.password').val() == $('.confirm_password').val()) {
+
+                $("#password").addClass("form-group has-success");
+                $("#alert-password").text("Password Match");
+
+                $("#confirm_password").addClass("form-group has-success");
+                $("#alert-confirm-password").text("Password Match");
+            } else {
+
+                $("#password").addClass("form-group has-danger");
+                $("#alert-password").text("Password Not Match");
+
+                $("#confirm_password").addClass("form-group has-danger");
+                $("#alert-confirm-password").text("Password Not Match");
+            }
+        });  
 
         // email validation
         $('form input[name="email"]').blur(function () {
@@ -774,7 +780,5 @@
             $("input[name=remove_image]").val('1');
             $("#targetLayer").html('');
         }
-
-        </script>
     </script>
 @endpush
