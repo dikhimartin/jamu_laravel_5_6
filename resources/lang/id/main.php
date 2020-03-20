@@ -22,6 +22,7 @@ return [
     'no'=>'No.',
     'add_new'=>"Tambah baru",
     'edit'=>"Ubah",
+    'update'=>"Update",
     'edit_data'=>"Ubah Data",
     'delete'=>"Hapus",
     'password'=>'Kata sandi',
@@ -36,6 +37,12 @@ return [
     'to' => 'sampai',
     'of' => 'dari',
     'records' => 'arsip',
+    'valid_email' => 'Alamat email yang valid!',
+    'not_valid_email' => 'Bukan alamat email yang valid!',
+    'confirm_of_change' => 'Konfirmasi Perubahan',
+    'please_enter_password' => 'Silakan masukkan kata sandi Anda',
+    'change_password' => 'Ganti kata sandi',
+    'change_password_remarks' => 'Kata sandi tidak perlu diisi, biarkan kosong jika Anda tidak ingin mengubahnya',
 
 
     // => SETTING

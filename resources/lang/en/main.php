@@ -22,6 +22,7 @@ return [
     'no'=>'No.',
     'add_new'=>"Add New",
     'edit'=>"Edit",
+    'update'=>"Update",
     'edit_data'=>"Edit Data",
     'delete'=>"Delete",
     'password'=>'Password',
@@ -37,6 +38,12 @@ return [
     'to' => 'to',
     'of' => 'of',
     'records' => 'Records',
+    'valid_email' => 'Valid email address!',
+    'not_valid_email' => 'Not a valid email address!',
+    'confirm_of_change' => 'Confirmation of Change',
+    'please_enter_password' => 'Please enter your password',
+    'change_password' => 'Change Password',
+    'change_password_remarks' => 'Password is not required to be filled in, just leave it blank if you dont want to change it',
 
 
     // => SETTING

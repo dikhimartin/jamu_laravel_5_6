@@ -42,18 +42,11 @@ class SettingController extends Controller
     }
 
     public function UpdateInlineName(Request $request){
-            $id= $request->pk;
-            $name = $request->value;
-            // $count = DB::table('users')->whereRAW("value LIKE '%".$position."%'")->where('id_users','!=',$id)->count();
-            // if($count)
-            //     echo "Similar position exists.";
+        $id     = $request->pk;
+        $name   = $request->value;
+        DB::table('users')->where('id_users',$id)->update(['name' => $name]);
 
-            // else
-            // {
-                DB::table('users')->where('id_users',$id)
-                ->update(['name' => $name]);
-                echo "1";
-            // }
+        echo json_encode($id);
     } 
 
     public function UpdateInlineEmail(Request $request){

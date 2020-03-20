@@ -123,13 +123,10 @@
                                 {{__('main.profile')}}</a>
                             </li>
 
-                            <li><a href="{{ route('logout') }}"
-                                    onclick="event.preventdefault();
-                                    document.getelementbyid('logout-form').submit();"><i class="fa fa-power-off"></i> {{ __('main.logout') }}
+                            <li>
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <i class="fa fa-power-off"></i> {{ __('main.logout') }}
                                 </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="post" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>
                             </li>
                         </ul>
                     </div>
