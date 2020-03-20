@@ -22,6 +22,7 @@ return [
     'no'=>'No.',
     'add_new'=>"Add New",
     'edit'=>"Edit",
+    'edit_data'=>"Edit Data",
     'delete'=>"Delete",
     'password'=>'Password',
     'confirm' =>'Confirm',
@@ -60,10 +61,16 @@ return [
     // Group User
     'group_user' => 'Group User',
     'name_group' => 'Group Name',
+    'information_group' => 'Information Group',
+    'display_name' => 'Display Name',
+    'check_all' => 'Checked All',
 
     // Users Role
     'show_permissions' => 'Show Permissions',
-
+    'permissions_detail' => 'Please select authorization permissions for this account group',
+    'permissions_menu' => 'Permissions Menu :',
+    'information_group' => 'Information Group',
+    'display_name' => 'Nama Tampilan',
 
 
 

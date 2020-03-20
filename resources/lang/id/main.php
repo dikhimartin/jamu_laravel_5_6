@@ -21,7 +21,8 @@ return [
     'role'=>"Hak akses",
     'no'=>'No.',
     'add_new'=>"Tambah baru",
-    'edit'=>"Edit",
+    'edit'=>"Ubah",
+    'edit_data'=>"Ubah Data",
     'delete'=>"Hapus",
     'password'=>'Kata sandi',
     'confirm' =>'Konfirmasi',
@@ -63,6 +64,12 @@ return [
 
     // Users Role
     'show_permissions' => 'Tunjukan Perijinan',
+    'permissions_detail' => 'Silakan pilih izin otorisasi untuk grup akun ini',
+    'permissions_menu' => 'Menu Permissions :',
+    'information_group' => 'Group Informasi',
+    'display_name' => 'Display Name',
+    'check_all' => 'Cek Semua',
+
 
 
     //JAMU 4
@@ -95,6 +102,7 @@ return [
     'data_added_succesfully' => 'Data berhasil ditambah',
     'data_succesfully_deleted' => 'Data berhasil dihapus',
     'data_succesfully_changed' => 'Data berhasil diubah',
+
 
 
 ];

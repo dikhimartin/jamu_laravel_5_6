@@ -55,16 +55,18 @@ class RoleController extends Controller
 
     public function store(Request $request){
         $this->validate($request, [
-            'name' => 'required|unique:roles,name',
-            'display_name' => 'required',
-            'description' => 'required',
-            'permission' => 'required',
+            'name'          => 'required|unique:roles,name',
+            'display_name'  => 'required',
+            'status'        => 'required',
+            'description'   => 'required',
+            'permission'    => 'required',
         ]);
 
         $role = new Role();
-        $role->name = $request->input('name');
+        $role->name         = $request->input('name');
         $role->display_name = $request->input('display_name');
-        $role->description = $request->input('description');
+        $role->status       = $request->input('status');
+        $role->description  = $request->input('description');
         $role->save();
 
         foreach ($request->input('permission') as $key => $value) {
@@ -101,14 +103,15 @@ class RoleController extends Controller
 
     public function update(Request $request, $id){
         $this->validate($request, [
-            'display_name' => 'required',
-            'description' => 'required',
-            'permission' => 'required',
+            'display_name'  => 'required',
+            'description'   => 'required',
+            'status'        => 'required',
+            'permission'    => 'required',
         ]);
 
-        $role = Role::find($id);
+        $role               = Role::find($id);
         $role->display_name = $request->input('display_name');
-        $role->description = $request->input('description');
+        $role->description  = $request->input('description');
         $role->save();
 
         DB::table("permission_role")->where("permission_role.role_id",$id)
