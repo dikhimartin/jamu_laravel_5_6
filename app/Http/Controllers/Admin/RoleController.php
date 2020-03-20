@@ -15,11 +15,7 @@ use Datatables;
 
 class RoleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     private $controller = 'roles';
 
     private function title(){
@@ -37,11 +33,6 @@ class RoleController extends Controller
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(){
         $controller =$this->controller;
         $pages_title =$this->title();
@@ -62,12 +53,6 @@ class RoleController extends Controller
         return view('backend.role_create',compact('permission','pages_title','page_active','controller','arrGroup'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request){
         $this->validate($request, [
             'name' => 'required|unique:roles,name',
@@ -89,33 +74,7 @@ class RoleController extends Controller
         return redirect()->route('roles.index')
                         ->with('success','Role created successfully');
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    
-    public function get_roles_byid(Request $request){
 
-        $id = $request->id;
-        $data_role = Role::find($id);
-        $data_rolePermissions = Permission::join("permission_role","permission_role.permission_id","=","permissions.id")
-            ->where("permission_role.role_id",$id)
-            ->get();
-
-
-        $data_return =array('data_role'=>$data_role,'data_rolePermissions'=>$data_rolePermissions);
-        return response()->json($data_return);
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id){
         $controller=$this->controller;
         $page_active ="roles";
@@ -140,13 +99,6 @@ class RoleController extends Controller
         return view('backend.role_edit',compact('role','permission','rolePermissions','pages_title','page_active','controller', 'arrGroup'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id){
         $this->validate($request, [
             'display_name' => 'required',
@@ -169,23 +121,71 @@ class RoleController extends Controller
         return redirect()->route('roles.index')
                         ->with('success','Role updated successfully');
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
 
-    public function deleted_roles(Request $request){
+    public function change_status_active($id){
+        $pk = Role::find($id);
+        $pk->status = "Y";
+        $pk->save();
+        $result=array(
+                "data_post"=>array(
+                "status"=>TRUE,
+                "class" => "info",
+                "message"=> __('main.data_already_active')
+            )
+
+        );
+        echo json_encode($result);
+    }
+
+    public function change_status_inactive($id){
+        $pk = Role::find($id);
+        $pk->status = "N";
+        $pk->save();
+        $result=array(
+                "data_post"=>array(
+                "status"=>TRUE,
+                "class" => "warning",
+                "message"=> __('main.data_inactive')
+            )
+        );
+        echo json_encode($result);
+    }
+
+    public function delete(Request $request){
         $pk = Role::find($request->id);
         $pk->delete();
         $result=array(
                 "data_post"=>array(
                     "status"=>TRUE,
                     "class" => "danger",
-                    "message"=>"Success ! Deleted data"
+                    "message"=> __('main.data_succesfully_deleted')
                 )
             );
         echo json_encode($result);
     }
+
+    public function delete_all($id){
+        DB::table("roles")->whereIn('id',explode(",",$id))->delete();
+        $result=array(
+                "data_post"=>array(
+                    "status"=>TRUE,
+                    "class" => "danger",
+                    "message"=> __('main.data_succesfully_deleted')
+                )
+            );
+        echo json_encode($result);
+    }
+
+    public function get_roles_byid(Request $request){
+
+        $id = $request->id;
+        $data_role = Role::find($id);
+        $data_rolePermissions = Permission::join("permission_role","permission_role.permission_id","=","permissions.id")
+            ->where("permission_role.role_id",$id)
+            ->get();
+
+        $data_return =array('data_role'=>$data_role,'data_rolePermissions'=>$data_rolePermissions);
+        return response()->json($data_return);
+    }
+
 }

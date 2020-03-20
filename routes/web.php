@@ -4,16 +4,30 @@ use Illuminate\Support\Facades\Input;
 Route::get('/', 'Auth\LoginController@showLoginForm');
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm'); 
 
-
 Auth::routes();
 
 
+// ADMIN SITE
 Route::group(array('prefix' => LaravelLocalization::setLocale() . '/admin', 'namespace' => 'Admin'), function () {
 
 	Route::get('/dashboard', 'HomeController@index')->name('home');
 
 
-	// ==> SETTING MODUL
+	/*
+	 |--------------------------------------------------------------------------
+	 | MODUL SETTING
+	 |--------------------------------------------------------------------------
+	*/
+
+	// Profile & Setting
+	Route::get('/my_profile','SettingController@my_profile');
+	Route::post('/update_profile','SettingController@update_profile');
+	Route::post('/update_password_profile','SettingController@update_password_profile');
+	Route::post('/UpdateInlineName',  'SettingController@UpdateInlineName');
+	Route::post('/UpdateInlineEmail',  'SettingController@UpdateInlineEmail');
+	Route::post('/UpdateInlineTelephone',  'SettingController@UpdateInlineTelephone');
+	Route::post('/UpdateInlineAddress',  'SettingController@UpdateInlineAddress');
+
 	// Users
 	Route::get('users',
 	[
@@ -28,39 +42,7 @@ Route::group(array('prefix' => LaravelLocalization::setLocale() . '/admin', 'nam
 	Route::post('deleted_users','UsersController@deleted_users');
 
 
-	// Module Profile & Setting
-	Route::get('/my_profile','SettingController@my_profile');
-	Route::post('/update_profile','SettingController@update_profile');
-	Route::post('/update_password_profile','SettingController@update_password_profile');
-	Route::post('/UpdateInlineName',  'SettingController@UpdateInlineName');
-	Route::post('/UpdateInlineEmail',  'SettingController@UpdateInlineEmail');
-	Route::post('/UpdateInlineTelephone',  'SettingController@UpdateInlineTelephone');
-	Route::post('/UpdateInlineAddress',  'SettingController@UpdateInlineAddress');
-
-	// Role module
-	Route::get('roles',
-	[
-		'as'=>'roles.index',
-		'uses'=>'RoleController@index',
-		'middleware' => ['permission:role-list|role-create|role-edit|role-delete']
-	] );
-
-	Route::get('roles/create',[
-		'as'=>'roles.create',
-		'uses'=>'RoleController@create',
-		'middleware' => ['permission:role-create']
-	]);
-
-	Route::get('/get_roles_byid','RoleController@get_roles_byid');
-	Route::post('roles/create',['as'=>'roles.store','uses'=>'RoleController@store','middleware' => ['permission:role-create']]);
-	Route::get('roles/{id}',['as'=>'roles.show','uses'=>'RoleController@show']);
-	Route::get('roles/{id}/edit',['as'=>'roles.edit','uses'=>'RoleController@edit','middleware' => ['permission:role-edit']]);
-	Route::patch('roles/{id}',['as'=>'roles.update','uses'=>'RoleController@update','middleware' => ['permission:role-edit']]);
-	Route::post('deleted_roles','RoleController@deleted_roles');
-
-
-
-	// SETTING GROUP USER
+	// Group User
 	Route::get('group_user',
 	[
 		'as'=>'group_user.index',
@@ -77,7 +59,30 @@ Route::group(array('prefix' => LaravelLocalization::setLocale() . '/admin', 'nam
 	Route::post('/group_user/deleted','GroupUserController@delete');
 
 
+	// Users Role
+	Route::get('roles',
+	[
+		'as'=>'roles.index',
+		'uses'=>'RoleController@index',
+		'middleware' => ['permission:role-list|role-create|role-edit|role-delete']
+	] );
+	Route::get('roles/create',[
+		'as'=>'roles.create',
+		'uses'=>'RoleController@create',
+		'middleware' => ['permission:role-create']
+	]);
+	Route::get('roles/get_roles_byid','RoleController@get_roles_byid');
+	Route::post('roles/create',['as'=>'roles.store','uses'=>'RoleController@store','middleware' => ['permission:role-create']]);
+	Route::get('roles/{id}',['as'=>'roles.show','uses'=>'RoleController@show']);
+	Route::get('roles/{id}/edit',['as'=>'roles.edit','uses'=>'RoleController@edit','middleware' => ['permission:role-edit']]);
+	Route::post('/roles/change_status_active/{id}','RoleController@change_status_active');
+	Route::post('/roles/change_status_inactive/{id}','RoleController@change_status_inactive');
+	Route::patch('roles/{id}',['as'=>'roles.update','uses'=>'RoleController@update','middleware' => ['permission:role-edit']]);
+	Route::post('/roles/deleted_all/{id}','RoleController@delete_all');
+	Route::post('roles/delete','RoleController@delete');
 });
+
+// FRONTEND SITE
 
 
 // Composer Laravel

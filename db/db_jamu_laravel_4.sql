@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 05 Jul 2019 pada 11.43
+-- Waktu pembuatan: 20 Mar 2020 pada 04.43
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.2.14
 
@@ -19,91 +19,24 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `project_master_dokumen`
+-- Database: `db_jamu_laravel_4`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `ek_divisis`
+-- Struktur dari tabel `ek_group_users`
 --
 
-CREATE TABLE `ek_divisis` (
+CREATE TABLE `ek_group_users` (
   `id` int(10) UNSIGNED NOT NULL,
-  `nama_divisi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `deskripsi` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name_group` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` enum('Y','N') COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Y = aktif, N= Tidak Aktif ',
   `additional` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data untuk tabel `ek_divisis`
---
-
-INSERT INTO `ek_divisis` (`id`, `nama_divisi`, `deskripsi`, `status`, `additional`, `created_at`, `updated_at`) VALUES
-(19, 'Finance', 'Finance', 'Y', NULL, '2019-07-05 09:16:43', '2019-07-05 09:16:43'),
-(20, 'Programmer', 'Programmer', 'N', NULL, '2019-07-05 09:16:51', '2019-07-05 09:21:26'),
-(21, 'Admin', 'Admin', 'Y', NULL, '2019-07-05 09:21:32', '2019-07-05 09:21:32');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `ek_document_types`
---
-
-CREATE TABLE `ek_document_types` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `id_master_tipe_dokumen` int(11) NOT NULL,
-  `status` enum('Y','N') COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Y = aktif, N= Tidak Aktif ',
-  `additional` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data untuk tabel `ek_document_types`
---
-
-INSERT INTO `ek_document_types` (`id`, `id_master_tipe_dokumen`, `status`, `additional`, `created_at`, `updated_at`) VALUES
-(68, 3, 'Y', NULL, '2019-07-05 09:29:09', '2019-07-05 09:35:31'),
-(69, 4, 'Y', NULL, '2019-07-05 09:29:09', '2019-07-05 09:31:03'),
-(70, 5, 'N', NULL, '2019-07-05 09:29:09', '2019-07-05 09:32:03'),
-(71, 7, 'Y', NULL, '2019-07-05 09:29:09', '2019-07-05 09:29:27'),
-(72, 8, 'Y', NULL, '2019-07-05 09:29:09', '2019-07-05 09:29:09');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `ek_master_tipe_dokumen`
---
-
-CREATE TABLE `ek_master_tipe_dokumen` (
-  `id` int(11) DEFAULT NULL,
-  `tipe_dokumen` varchar(50) DEFAULT NULL,
-  `keterangan` varchar(50) DEFAULT NULL,
-  `additional` varchar(50) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `ek_master_tipe_dokumen`
---
-
-INSERT INTO `ek_master_tipe_dokumen` (`id`, `tipe_dokumen`, `keterangan`, `additional`) VALUES
-(1, 'doc', 'Microsoft Word 97 - 2003 Document', NULL),
-(2, 'docx', 'Microsoft Word Document', NULL),
-(3, 'xls', 'Microsoft Excel 97 - 2003 Worksheet', NULL),
-(4, 'xlsx', 'Microsoft Excel Worksheet', NULL),
-(5, 'ppt', 'Microsoft PowerPoint 97 - 2003 Presentation', NULL),
-(6, 'pptx', 'Microsoft PowerPoint Presentation', NULL),
-(7, 'pdf', 'Portable Document Format', NULL),
-(8, 'psd', 'Photoshop Document', NULL),
-(9, 'rar', 'RAR Archive', NULL),
-(10, 'zip', 'ZIP Archive', NULL),
-(11, 'jpeg', 'Joint Photographic Experts Group', NULL),
-(12, 'jpg', 'Joint Photographic Group', NULL),
-(13, 'png', 'Portable Network Graphics', NULL);
 
 -- --------------------------------------------------------
 
@@ -131,7 +64,8 @@ INSERT INTO `ek_migrations` (`id`, `migration`, `batch`) VALUES
 (13, '2016_06_01_000004_create_oauth_clients_table', 3),
 (14, '2016_06_01_000005_create_oauth_personal_access_clients_table', 3),
 (15, '2019_07_03_234500_create_document_types_table', 3),
-(16, '2019_07_04_044417_create_divisis_table', 3);
+(16, '2019_07_04_044417_create_divisis_table', 3),
+(17, '2020_03_09_003544_create_group_users_table', 4);
 
 -- --------------------------------------------------------
 
@@ -260,20 +194,10 @@ INSERT INTO `ek_permissions` (`id`, `name`, `display_name`, `description`, `urut
 (6, 'users-create', 'Users Create', 'users create', 1, '2017-06-22 00:00:00', '2017-06-22 00:00:00'),
 (7, 'users-edit', 'Users Edit', 'users edit', 1, '2017-06-22 00:00:00', '2017-06-22 00:00:00'),
 (8, 'users-delete', 'Users Delete', 'users delete', 1, '2017-06-22 00:00:00', '2017-06-22 00:00:00'),
-(9, 'master-document-list', 'Master Document List', 'Master Document List', 3, '2019-07-03 13:57:27', '2019-07-03 13:57:29'),
-(10, 'master-document-create', 'Master Document Create', 'Master Document Create', 3, '2019-07-03 13:58:14', '2019-07-03 13:58:15'),
-(11, 'master-document-edit', 'Master Document Edit', 'Master Document Edit', 3, '2019-07-03 13:59:09', '2019-07-03 13:59:10'),
-(12, 'master-document-delete', 'Master Document Delete', 'Master Document Delete', 3, '2019-07-03 13:59:34', '2019-07-03 13:59:35'),
-(13, 'master-document-upload', 'Master Document Upload', 'Master Document Upload', 3, '2019-07-03 14:17:46', '2019-07-03 14:17:47'),
-(14, 'master-document-download', 'Master Document Download', 'Master Document Download', 3, '2019-07-03 14:18:11', '2019-07-03 14:18:12'),
-(15, 'document-types-list', 'Document Type List', 'Document Type List', 4, '2019-07-03 16:36:21', '2019-07-03 16:36:22'),
-(16, 'document-types-create', 'Document Type Create', 'Document Type Create', 4, '2019-07-03 16:36:44', '2019-07-03 16:36:45'),
-(17, 'document-types-edit', 'Document Type Edit', 'Document Type Edit', 4, '2019-07-03 16:37:06', '2019-07-03 16:37:07'),
-(18, 'document-types-delete', 'Document Type Delete', 'Document Type Delete', 4, '2019-07-03 16:37:51', '2019-07-03 16:37:52'),
-(19, 'divisi-list', 'Divisi List', 'Divisi List', 5, '2019-07-03 21:39:00', '2019-07-03 21:39:01'),
-(20, 'divisi-create', 'Divisi Create', 'Divisi Create', 5, '2019-07-03 21:39:22', '2019-07-03 21:39:23'),
-(21, 'divisi-edit', 'Divisi Edit', 'Divisi Edit', 5, '2019-07-03 21:39:42', '2019-07-03 21:39:43'),
-(22, 'divisi-delete', 'Divisi Delete', 'Divisi Delete', 5, '2019-07-03 21:40:00', '2019-07-03 21:40:01');
+(9, 'group_user-list', 'Group List', 'Group List', 5, '2019-07-03 21:39:00', '2019-07-03 21:39:01'),
+(10, 'group_user-create', 'Group Create', 'Group Create', 5, '2019-07-03 21:39:22', '2019-07-03 21:39:23'),
+(11, 'group_user-edit', 'Group Edit', 'Group Edit', 5, '2019-07-03 21:39:42', '2019-07-03 21:39:43'),
+(12, 'group_user-delete', 'Group Delete', 'Group Delete', 5, '2019-07-03 21:40:00', '2019-07-03 21:40:01');
 
 -- --------------------------------------------------------
 
@@ -291,13 +215,9 @@ CREATE TABLE `ek_permission_role` (
 --
 
 INSERT INTO `ek_permission_role` (`permission_id`, `role_id`) VALUES
-(5, 2),
-(6, 2),
-(7, 2),
-(8, 2),
-(1, 2),
-(2, 2),
 (5, 1),
+(1, 1),
+(9, 1),
 (5, 3),
 (6, 3),
 (7, 3),
@@ -310,16 +230,9 @@ INSERT INTO `ek_permission_role` (`permission_id`, `role_id`) VALUES
 (10, 3),
 (11, 3),
 (12, 3),
-(13, 3),
-(14, 3),
-(15, 3),
-(16, 3),
-(17, 3),
-(18, 3),
-(19, 3),
-(20, 3),
-(21, 3),
-(22, 3);
+(5, 2),
+(1, 2),
+(9, 2);
 
 -- --------------------------------------------------------
 
@@ -332,18 +245,20 @@ CREATE TABLE `ek_roles` (
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `display_name` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` enum('Y','N') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `additional` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=COMPACT;
 
 --
 -- Dumping data untuk tabel `ek_roles`
 --
 
-INSERT INTO `ek_roles` (`id`, `name`, `display_name`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'Member Of Division', 'User', 'User', '2017-06-21 01:58:15', '2019-07-03 13:41:08'),
-(2, 'Head of Division', 'Admin', 'Admin', '2018-07-13 06:31:05', '2019-07-03 13:40:58'),
-(3, 'Super Admin', 'Super Admin', 'Super Admin', '2019-01-18 03:27:27', '2019-01-18 03:27:27');
+INSERT INTO `ek_roles` (`id`, `name`, `display_name`, `description`, `status`, `created_at`, `updated_at`, `additional`) VALUES
+(1, 'Member Of Division', 'Sales', 'Sales', 'Y', '2017-06-21 01:58:15', '2020-03-20 03:38:13', ''),
+(2, 'Head of Division', 'Admin', 'Admin', 'Y', '2018-07-13 06:31:05', '2019-07-03 13:40:58', ''),
+(3, 'Super Admin', 'Super Admin', 'Super Admin', 'Y', '2019-01-18 03:27:27', '2020-03-20 03:37:56', '');
 
 -- --------------------------------------------------------
 
@@ -352,8 +267,8 @@ INSERT INTO `ek_roles` (`id`, `name`, `display_name`, `description`, `created_at
 --
 
 CREATE TABLE `ek_role_user` (
+  `role_id` int(10) UNSIGNED NOT NULL,
   `user_id` char(10) CHARACTER SET latin1 NOT NULL,
-  `role_id` int(10) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=COMPACT;
@@ -362,10 +277,10 @@ CREATE TABLE `ek_role_user` (
 -- Dumping data untuk tabel `ek_role_user`
 --
 
-INSERT INTO `ek_role_user` (`user_id`, `role_id`, `created_at`, `updated_at`) VALUES
-('K00001', 3, NULL, NULL),
-('K00002', 2, '2019-07-03 13:41:42', '2019-07-03 13:41:42'),
-('K00003', 1, '2019-07-03 13:42:05', '2019-07-03 13:42:05');
+INSERT INTO `ek_role_user` (`role_id`, `user_id`, `created_at`, `updated_at`) VALUES
+(3, 'K00001', NULL, NULL),
+(2, 'K00002', '2019-07-03 13:41:42', '2019-07-03 13:41:42'),
+(1, 'K00003', '2019-07-03 13:42:05', '2019-07-03 13:42:05');
 
 -- --------------------------------------------------------
 
@@ -399,23 +314,9 @@ CREATE TABLE `ek_users` (
 --
 
 INSERT INTO `ek_users` (`id_users`, `nik`, `name`, `password`, `email`, `telephone`, `date_birth`, `address`, `gender`, `id_level_user`, `image`, `remember_token`, `created_by`, `updated_by`, `created_at`, `updated_at`, `status`, `additional`) VALUES
-('K00001', 'superadmin', 'Super Admin', '$2y$10$1cHRgWWWRW1ZUBrduUGn5eAY9aIVE2f.2//hhGDTvoj7qURDmrKNm', 'dikhimartin@gmail.com', '081748334809', '2019-02-16', 'Bd. Silvy Kusmiran Jl. Lama Citarik No. 185 Rt. 0101 Ds. Jatireja1aa', 'L', 3, '', 'wccbaF6Nk1JpjQOl8fylrF11IClRFYkM48jYOHGBN9ANcxvKEZPIkDxnCZfx', 'K00001', 'K00001', '2019-01-07 16:33:38', '2019-07-03 23:22:54', 'Y', NULL),
-('K00002', 'admin', 'Admin', '$2y$10$i6m3f/s1m8syXrub.nTamepK/UsHVCiej3jUwUZvzDLjAYezFRLwS', 'dikhi.martin@gmail.com', '085693086800', '2019-07-03', 'Ciketing Udik Rt.002/003, Bantargebang', 'P', 2, NULL, 'V8DFOUwCdVqRhUjowoGEiONXMRRiok1x9SWJfu4kwBrmKJCclPnuo22Ogfw9', 'K00001', 'K00001', '2019-07-03 20:41:42', '2019-07-05 15:12:55', 'Y', NULL),
-('K00003', 'user', 'User', '$2y$10$IGXwb2SORE8Uyh6GpXguyOZNR5EW4V9hmI5sJPIlRTfQNpqfDd.Ey', 'dikhi.martin@gmail.com', '085219378505', '2019-07-03', 'Bd. Silvy Kusmiran Jl. Lama Citarik No. 185 Rt. 0101 Ds. Jatireja', 'L', 1, NULL, 'N0g2T14tf1tZs7yh4kjObFSS5a1vX5yeNBdonyQSmSYfq7WYtN1ReZybyy57', 'K00001', NULL, '2019-07-03 20:42:05', '2019-07-03 20:42:05', 'Y', NULL);
-
--- --------------------------------------------------------
-
---
--- Stand-in struktur untuk tampilan `ek_v_get_tipe_document`
--- (Lihat di bawah untuk tampilan aktual)
---
-CREATE TABLE `ek_v_get_tipe_document` (
-`id` int(10) unsigned
-,`id_master_tipe_dokumen` int(11)
-,`tipe_dokumen` varchar(50)
-,`keterangan` varchar(50)
-,`status` enum('Y','N')
-);
+('K00001', 'superadmin', 'Super Admin', '$2y$10$beG1x0J/8Gk9DvgvHO579.az8lhIJj02fHR/w4nsXQyx8u83mg/im', 'dikhimartin@gmail.com', '081748334809sas', '2019-02-16', 'Bd. Silvy Kusmiran Jl. Lama Citarik No. 185 Rt. 0101 Ds. Jatireja1aa', 'L', 3, '', 'VUUxjwJ8GJcEllYFo49KDTpWOLAnRuhOTT0Wh08yX9ouiuppNhFCn6TkOOUJ', 'K00001', 'K00001', '2019-01-07 16:33:38', '2020-03-20 05:04:29', 'Y', NULL),
+('K00002', 'admin', 'Admin', '$2y$10$i6m3f/s1m8syXrub.nTamepK/UsHVCiej3jUwUZvzDLjAYezFRLwS', 'dikhi.martin@gmail.com', '085693086800', '2019-07-03', 'Ciketing Udik Rt.002/003, Bantargebang', 'P', 2, NULL, 'usFZhLNJcm2aanXVPWgGPBpEhbA09LP4w24Vz0GdJxdTD25LH6jh7URjHTdI', 'K00001', 'K00001', '2019-07-03 20:41:42', '2019-07-05 15:12:55', 'Y', NULL),
+('K00003', 'user', 'User', '$2y$10$IGXwb2SORE8Uyh6GpXguyOZNR5EW4V9hmI5sJPIlRTfQNpqfDd.Ey', 'dikhi.martin@gmail.com', '085219378505', '2019-07-03', 'Bd. Silvy Kusmiran Jl. Lama Citarik No. 185 Rt. 0101 Ds. Jatireja', 'L', 1, NULL, 'N0g2T14tf1tZs7yh4kjObFSS5a1vX5yeNBdonyQSmSYfq7WYtN1ReZybyy57', 'K00001', 'K00001', '2019-07-03 20:42:05', '2020-03-20 05:06:32', 'Y', NULL);
 
 -- --------------------------------------------------------
 
@@ -438,29 +339,14 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (0, '2019_01_11_153834_create_companies_table', 2);
 
--- --------------------------------------------------------
-
---
--- Struktur untuk view `ek_v_get_tipe_document`
---
-DROP TABLE IF EXISTS `ek_v_get_tipe_document`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ek_v_get_tipe_document`  AS  select `ek_document_types`.`id` AS `id`,`ek_master_tipe_dokumen`.`id` AS `id_master_tipe_dokumen`,`ek_master_tipe_dokumen`.`tipe_dokumen` AS `tipe_dokumen`,`ek_master_tipe_dokumen`.`keterangan` AS `keterangan`,`ek_document_types`.`status` AS `status` from (`ek_document_types` join `ek_master_tipe_dokumen` on((`ek_document_types`.`id_master_tipe_dokumen` = `ek_master_tipe_dokumen`.`id`))) ;
-
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `ek_divisis`
+-- Indeks untuk tabel `ek_group_users`
 --
-ALTER TABLE `ek_divisis`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indeks untuk tabel `ek_document_types`
---
-ALTER TABLE `ek_document_types`
+ALTER TABLE `ek_group_users`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -510,6 +396,12 @@ ALTER TABLE `ek_password_resets`
   ADD KEY `ek_password_resets_email_index` (`email`) USING BTREE;
 
 --
+-- Indeks untuk tabel `ek_permission_role`
+--
+ALTER TABLE `ek_permission_role`
+  ADD KEY `FK_ek_permission_role_ek_roles` (`role_id`);
+
+--
 -- Indeks untuk tabel `ek_roles`
 --
 ALTER TABLE `ek_roles`
@@ -519,7 +411,8 @@ ALTER TABLE `ek_roles`
 -- Indeks untuk tabel `ek_role_user`
 --
 ALTER TABLE `ek_role_user`
-  ADD PRIMARY KEY (`user_id`);
+  ADD PRIMARY KEY (`user_id`),
+  ADD KEY `FK_ek_role_user_ek_roles` (`role_id`);
 
 --
 -- Indeks untuk tabel `ek_users`
@@ -532,22 +425,16 @@ ALTER TABLE `ek_users`
 --
 
 --
--- AUTO_INCREMENT untuk tabel `ek_divisis`
+-- AUTO_INCREMENT untuk tabel `ek_group_users`
 --
-ALTER TABLE `ek_divisis`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
---
--- AUTO_INCREMENT untuk tabel `ek_document_types`
---
-ALTER TABLE `ek_document_types`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+ALTER TABLE `ek_group_users`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT untuk tabel `ek_migrations`
 --
 ALTER TABLE `ek_migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT untuk tabel `ek_oauth_clients`
@@ -565,16 +452,23 @@ ALTER TABLE `ek_oauth_personal_access_clients`
 -- AUTO_INCREMENT untuk tabel `ek_roles`
 --
 ALTER TABLE `ek_roles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
+-- Ketidakleluasaan untuk tabel `ek_permission_role`
+--
+ALTER TABLE `ek_permission_role`
+  ADD CONSTRAINT `FK_ek_permission_role_ek_roles` FOREIGN KEY (`role_id`) REFERENCES `ek_roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Ketidakleluasaan untuk tabel `ek_role_user`
 --
 ALTER TABLE `ek_role_user`
+  ADD CONSTRAINT `FK_ek_role_user_ek_roles` FOREIGN KEY (`role_id`) REFERENCES `ek_roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `users join roles_user` FOREIGN KEY (`user_id`) REFERENCES `ek_users` (`id_users`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 

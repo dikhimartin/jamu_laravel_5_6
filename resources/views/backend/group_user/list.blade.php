@@ -327,7 +327,6 @@
         });     
 
         disabledButtonHapusSemua();
-
         $("input[type=checkbox]").on("click", function() {
             disabledButtonHapusSemua();
         });
@@ -546,7 +545,6 @@
                              if(result.data_post.status) //if success close modal and reload ajax table
                             {   
                                 swal("{{ __('main.done') }}","{{ __('main.done_detail') }}","success");
-                                $('#modal_form').modal('hide');
                                 $("#notif_success").animate({
                                         left: "+=50",
                                         height: "toggle"
@@ -574,13 +572,13 @@
 
         function removed_all_data(){
                 swal({
-                    title: "Apakah Kamu Yakin?",   
-                    text: "Data yang dipilih akan dihapus semua, Kamu tidak akan dapat memulihkan data ini!",   
+                    title: "{{ __('main.are_you_sure') }}",   
+                    text: "{{__('main.are_you_sure_delete_all_detail')}}",   
                     type: "warning",   
                     showCancelButton: true,   
                     confirmButtonColor: "#dc3545",   
-                    confirmButtonText: "Ya, hapus!",   
-                    cancelButtonText: "Tidak, batalkan!",   
+                    confirmButtonText: "{{ __('main.yes_deleted') }}",   
+                    cancelButtonText: "{{ __('main.no_cancel') }}",    
                     closeOnConfirm: false,   
                     closeOnCancel: false,
                     showLoaderOnConfirm: true
@@ -611,21 +609,32 @@
                                     'X-CSRF-Token': $('input[name="_token"]').val()
                                 },
                                 success: function(result){
-                                    swal("Selesai!","File berhasil dihapus!","success");
+
+                                    swal("{{ __('main.done') }}","{{ __('main.done_detail') }}","success");
                                     $.each(post_arr, function( i,l ){
                                         $("#tr_"+l).remove();
                                     });
-                                    document.getElementById("notif_success").innerHTML ="<div class='alert alert-warning'>{{__('main.data_succesfully_deleted')}}</div>";
+                                    
+                                    $("#notif_success").animate({
+                                            left: "+=50",
+                                            height: "toggle"
+                                        }, 100, function() {
+                                     });
+
+                                    document.getElementById("notif_success").innerHTML ="<div class='alert alert-danger'>{{__('main.data_succesfully_deleted')}}</div>";
+
                                     setTimeout(function() {
-                                        $('#notif_success').hide();
-                                    }, 3000);
+                                            $('#notif_success').hide();
+                                    }, 1500);
+
                                 }
                             });
                         }   
                         }else{
-                                swal("Dibatalkan", "Data Anda masih aman :)", "error");
+                            swal("{{ __('main.cancelled') }}", "{{ __('main.cancelled_detail') }}", "error");
                         } 
                      })
         }
+
     </script>
 @endpush

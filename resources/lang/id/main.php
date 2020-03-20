@@ -61,17 +61,22 @@ return [
 
 
 
+    // Users Role
+    'show_permissions' => 'Tunjukan Perijinan',
+
+
     //JAMU 4
     'active' => 'Aktif',
     'non-active' => 'Tidak Aktif',
-    'are_you_sure' => 'Are You Sure?',
-    'are_you_sure_detail' => 'You will not be able to recover this data!',
-    'yes_deleted' => 'Yes, delete it!',
-    'no_cancel' => 'No, cancel it!',
-    'cancelled' => 'Cancelled',
-    'cancelled_detail' => 'Your data still is safe :)',
-    'done' => 'Done!',
-    'done_detail' => 'File It was succesfully deleted!',
+    'are_you_sure' => 'Apakah Anda Yakin?',
+    'are_you_sure_detail' => 'Anda tidak akan dapat memulihkan data ini!',
+    'are_you_sure_delete_all_detail' => 'Data yang dipilih akan dihapus semua, Kamu tidak akan dapat memulihkan data ini!',
+    'yes_deleted' => 'Ya, hapus!',
+    'no_cancel' => 'Tidak, batalkan!',
+    'cancelled' => 'Dibatalkan',
+    'cancelled_detail' => 'Data Anda masih aman :)',
+    'done' => 'Selesai!',
+    'done_detail' => 'Data berhasil dihapus!',
     'display_name' => 'Display Name',
     'list_permissions' => 'List Permissions',
     'add' => 'Tambah',

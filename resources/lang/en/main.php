@@ -61,6 +61,10 @@ return [
     'group_user' => 'Group User',
     'name_group' => 'Group Name',
 
+    // Users Role
+    'show_permissions' => 'Show Permissions',
+
+
 
 
     //JAMU 4
@@ -68,12 +72,13 @@ return [
     'non-active' => 'Non-Active',
     'are_you_sure' => 'Are You Sure?',
     'are_you_sure_detail' => 'You will not be able to recover this data!',
+    'are_you_sure_delete_all_detail' => 'The selected data will all be deleted, you will not be able to recover this data!',
     'yes_deleted' => 'Yes, delete it!',
     'no_cancel' => 'No, cancel it!',
     'cancelled' => 'Cancelled',
     'cancelled_detail' => 'Your data still is safe :)',
     'done' => 'Done!',
-    'done_detail' => 'File It was succesfully deleted!',
+    'done_detail' => 'Data was succesfully deleted!',
     'display_name' => 'Display Name',
     'list_permissions' => 'List Permissions',
     'add' => 'Add',
