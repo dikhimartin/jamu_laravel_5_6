@@ -33,7 +33,6 @@ Route::group(array('prefix' => LaravelLocalization::setLocale() . '/admin', 'nam
 	[
 		'as'=>'users.index',
 		'uses'=>'UsersController@index',
-		'middleware' => ['permission:users-list|users-create|users-edit|users-delete']
 	]);
 	Route::get('/get_users_data','UsersController@get_users_data');
 	Route::get('/get_users_data_byid','UsersController@get_users_data_byid');
@@ -47,7 +46,6 @@ Route::group(array('prefix' => LaravelLocalization::setLocale() . '/admin', 'nam
 	[
 		'as'=>'group_user.index',
 		'uses'=>'GroupUserController@index',
-		'middleware' => ['permission:group_user-list|group_user-create|group_user-edit|group_user-delete']
 	]);
 	Route::get('/get_group_user_data','GroupUserController@get_group_user_data');
 	Route::get('/get_group_user_data_byid','GroupUserController@get_group_user_data_byid');
@@ -64,20 +62,18 @@ Route::group(array('prefix' => LaravelLocalization::setLocale() . '/admin', 'nam
 	[
 		'as'=>'roles.index',
 		'uses'=>'RoleController@index',
-		'middleware' => ['permission:role-list|role-create|role-edit|role-delete']
 	] );
 	Route::get('roles/create',[
 		'as'=>'roles.create',
 		'uses'=>'RoleController@create',
-		'middleware' => ['permission:role-create']
 	]);
 	Route::get('roles/get_roles_byid','RoleController@get_roles_byid');
-	Route::post('roles/create',['as'=>'roles.store','uses'=>'RoleController@store','middleware' => ['permission:role-create']]);
+	Route::post('roles/create',['as'=>'roles.store','uses'=>'RoleController@store']);
 	Route::get('roles/{id}',['as'=>'roles.show','uses'=>'RoleController@show']);
-	Route::get('roles/{id}/edit',['as'=>'roles.edit','uses'=>'RoleController@edit','middleware' => ['permission:role-edit']]);
+	Route::get('roles/{id}/edit',['as'=>'roles.edit','uses'=>'RoleController@edit']);
 	Route::post('/roles/change_status_active/{id}','RoleController@change_status_active');
 	Route::post('/roles/change_status_inactive/{id}','RoleController@change_status_inactive');
-	Route::patch('roles/{id}',['as'=>'roles.update','uses'=>'RoleController@update','middleware' => ['permission:role-edit']]);
+	Route::patch('roles/{id}',['as'=>'roles.update','uses'=>'RoleController@update']);
 	Route::post('/roles/deleted_all/{id}','RoleController@delete_all');
 	Route::post('roles/delete','RoleController@delete');
 });

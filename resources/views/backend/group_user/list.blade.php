@@ -352,7 +352,6 @@
         }
 
         function status_change(source, id){
-
             var url;
             url = "";
             if(source == true){
@@ -369,6 +368,12 @@
                     },
                     success: function(data)
                     {
+
+                        if (data == "error_403") {
+                            $('#modals_confirm').modal('hide');
+                            swal("{{__('main.failed')}}","{{__('main.dont_have_permission')}}","error");
+                        }
+
                          $.toast({
                             heading: '{{__('main.success')}}',
                             text: '{{__('main.data_already_active')}}',
@@ -384,7 +389,6 @@
                     alert('Error adding data');
                     }
                 });
-
             }else{
                 $.ajax({
                     url : "/admin/group_user/change_status_inactive/"+id,
@@ -399,6 +403,13 @@
                     },
                     success: function(data)
                     {
+
+
+                        if (data == "error_403") {
+                            $('#modals_confirm').modal('hide');
+                            swal("{{__('main.failed')}}","{{__('main.dont_have_permission')}}","error");
+                        }                        
+
                          $.toast({
                             heading: '{{__('main.success')}}',
                             text: '{{__('main.data_inactive')}}',
@@ -474,9 +485,10 @@
 
             if(save_method == 'add') {
                 url ="{{url('admin/group_user/save')}}";
-                // console.log(url);
+                $('#btnSave').html('<i class="fa fa-spinner fa-spin"></i>&nbsp;&nbsp;Saving ...'); //change button text
             } else {
                 url ="{{url('admin/group_user/update')}}";
+                $('#btnSave').html('<i class="fa fa-spinner fa-spin"></i>&nbsp;&nbsp;Updated ...'); //change button text
             }
             // ajax adding data to database
             var formData = new FormData($('#form_group_user')[0]);

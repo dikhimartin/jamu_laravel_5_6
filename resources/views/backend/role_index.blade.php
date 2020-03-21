@@ -39,24 +39,25 @@
                                                     <div class="form-group">
                                                         <label>{{__('main.search_by')}}</label>
                                                         <select name="field_filter" class="form-control">
-                                                            <option value="name_group">{{__('main.name_group')}}</option>
-                                                            <option value="description">{{__('main.description')}}</option>
+                                                            <option value="name" {{ $field_filter == 'name' ? "selected" : "" }}>{{__('main.name')}}</option>
+                                                            <option value="description" {{ $field_filter == 'description' ? "selected" : "" }}>{{__('main.description')}}
+                                                            </option>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
                                                     <div class="form-group">
-                                                        <label style="color: white;">Operator</label>
+                                                        <label style="color: white;">Operator {{ $operator_filter}}</label>
                                                         <select name="operator_filter" class="form-control">
-                                                            <option value="LIKE">Contain (like)</option>
-                                                            <option value="=">Equal (=)</option>
+                                                            <option value="LIKE" {{ $operator_filter == 'LIKE' ? "selected" : "" }}>Contain (like)</option>
+                                                            <option value="=" {{ $operator_filter == '=' ? "selected" : "" }}>Equal (=)</option>
                                                         </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label style="color: white;">Operator</label>
-                                                        <input type="text" name="text_filter" class="form-control" value="">
+                                                        <input type="text" name="text_filter" class="form-control" value="{{$text_filter}}">
                                                     </div>
                                                 </div>
                                             </div>
@@ -90,14 +91,14 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="button-group">
-                                    @permission('role-create')
+                                    @permission('roles-create')
                                     <a href="{{ route('roles.create') }}">
                                          <button class="btn btn-info btn-sm waves-light" type="button" data-toggle="tooltip" data-placement="top" title="{{__('main.add_new')}}"><span class="btn-label"><i class="fa fa-plus"></i></span>&nbsp;{{__('main.add_new')}}
                                          </button>
                                     </a>
                                     @endpermission
 
-                                    @permission('role-delete')
+                                    @permission('roles-delete')
                                     <a href="javascript:void(0)">
                                         <button id="btn-hps-semua" onclick="removed_all_data()" class="btn btn-danger btn-sm waves-light" type="button" data-toggle="tooltip" data-placement="top" title="{{__('main.delete_all')}}"><span class="btn-label"><i class="fa fa-trash"></i>
                                             </span>&nbsp;{{__('main.delete_all')}}
@@ -163,16 +164,18 @@
                                                     <i class="fa fa-key"></i>
                                                 </a>
 
-                                                @permission('role-edit')
+                                                @permission('roles-edit')
                                                     <a href="{{ route('roles.edit',$value->id) }}" class="btn waves-effect waves-light btn-rounded btn-sm btn-info"data-toggle="tooltip" data-placement="top" title="{{__('main.edit')}}">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
                                                 @endpermission
-                                                @permission('role-delete')
+
+                                                @permission('roles-delete')
                                                    <a href="javascript:void(0)" onclick="removed({{$value->id}})" class="btn waves-effect waves-light btn-rounded btn-sm btn-danger"data-toggle="tooltip" data-placement="top" title="{{__('main.delete')}}">
                                                         <i class="fa fa-trash"></i>
                                                     </a>
                                                 @endpermission
+
                                             </div>
                                         </td>
                                     </tr>
@@ -358,6 +361,11 @@
                     },
                     success: function(data)
                     {
+                        if (data == "error_403") {
+                            $('#modals_confirm').modal('hide');
+                            swal("{{__('main.failed')}}","{{__('main.dont_have_permission')}}","error");
+                        }
+
                          $.toast({
                             heading: '{{__('main.success')}}',
                             text: '{{__('main.data_already_active')}}',
@@ -388,6 +396,12 @@
                     },
                     success: function(data)
                     {
+
+                        if (data == "error_403") {
+                            $('#modals_confirm').modal('hide');
+                            swal("{{__('main.failed')}}","{{__('main.dont_have_permission')}}","error");
+                        }
+                        
                          $.toast({
                             heading: '{{__('main.success')}}',
                             text: '{{__('main.data_inactive')}}',

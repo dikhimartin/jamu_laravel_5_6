@@ -72,6 +72,10 @@ class GroupUserController extends Controller
 
     public function save(Request $request){
 
+        if (!Auth::user()->can($this->controller.'-create')){
+            return  json_encode("error_403");
+        }
+
         $data = array();
         $data['error_string'] = array();
         $data['inputerror'] = array();
@@ -98,6 +102,10 @@ class GroupUserController extends Controller
 
     public function update(Request $request){
 
+        if (!Auth::user()->can($this->controller.'-edit')){
+            return  json_encode("error_403");
+        }
+
         GroupUserController::_validate_data($request);
 
         $pk = GroupUser::find($request->id);
@@ -118,6 +126,12 @@ class GroupUserController extends Controller
     }
 
     public function change_status_active($id){
+
+        if (!Auth::user()->can($this->controller.'-edit')){
+            return  json_encode("error_403");
+        }
+
+
         $pk = GroupUser::find($id);
         $pk->status = "Y";
         $pk->save();
@@ -133,6 +147,11 @@ class GroupUserController extends Controller
     }
 
     public function change_status_inactive($id){
+
+        if (!Auth::user()->can($this->controller.'-edit')){
+            return  json_encode("error_403");
+        }
+
         $pk = GroupUser::find($id);
         $pk->status = "N";
         $pk->save();
@@ -147,6 +166,12 @@ class GroupUserController extends Controller
     }
 
     public function delete(Request $request){
+
+        if (!Auth::user()->can($this->controller.'-delete')){
+            echo json_encode("error_403");
+        }
+
+
         $pk = GroupUser::find($request->id);
         $pk->delete();
         $result=array(
@@ -160,7 +185,12 @@ class GroupUserController extends Controller
     }
 
     public function delete_all($id){
-  
+
+        if (!Auth::user()->can($this->controller.'-delete')){
+            echo json_encode("error_403");
+        }
+
+
         DB::table("group_users")->whereIn('id',explode(",",$id))->delete();
 
         $result=array(
@@ -174,6 +204,11 @@ class GroupUserController extends Controller
     }
 
     public function get_group_user_data_byid(Request $request){
+
+        if (!Auth::user()->can($this->controller.'-list')){
+            echo json_encode("error_403");
+        }
+
         $id = $request->id;
 
         $data_divisi = DB::table('group_users')->select('group_users.*')

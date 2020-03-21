@@ -1,43 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-    <title>Error 401 - Authorization Required</title>
-
-    <!-- Google font -->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,400,700" rel="stylesheet">
-
-    <!-- Custom stlylesheet -->
-    <link type="text/css" rel="stylesheet" href="{{ URL::asset('assets/error_page/css/style.css') }}" />
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
-
-</head>
-
-<body>
-
-    <div id="notfound">
-        <div class="notfound">
-            <div class="notfound-404">
-                <h1>Oops!</h1>
-                <h2>Error 404 - Page Not Found</h2>
-                <p>We looked everywhere but we couldn't find it!</p>
-            </div>
-        </br></br>
-            <a href="/">Back TO Dashboard</a>
+@extends('layouts.backend.errors')
+@section('content')
+    <section id="wrapper" class="error-page">
+        <div class="error-box">
+            <div class="error-body text-center">
+                <h1>404</h1>
+                <h3 class="text-uppercase">{{__("main.page_not_found")}}</h3>
+                <p class="text-muted m-t-30 m-b-30">We looked everywhere but we couldn't find it!</p>
+                <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( 'admin/dashboard' ))}}" class="btn btn-info btn-rounded waves-effect waves-light m-b-40">{{__('main.back_to_home')}}</a> </div>
+                <footer class="footer text-center" id="copyright_footer"></footer>
         </div>
-    </div>
-
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
-
-</html>
+    </section>
+<script type="text/javascript">
+    var dt   = new Date();
+    var data = ''+dt.getFullYear()+' &copy; PHP | Laravel Framework 5.6 | '+
+                '<a href="http://dikhimartin.com/" class="m-link">'+
+                    'Dikhi Martin'+
+                '</a>';
+    document.getElementById("copyright_footer").innerHTML = data;
+</script>
+@endsection

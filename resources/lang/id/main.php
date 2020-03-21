@@ -50,6 +50,10 @@ return [
     'warning_password' => 'Silahkan mengisi terlebih dahulu kata sandi',
     'wrong_password' => 'Kata sandi anda salah',
     'data_has_been_changed' => 'Data Anda telah berhasil diubah',
+    'page_not_found' => 'HALAMAN TIDAK DITEMUKAN !',
+    'dont_have_permission' => 'ANDA TIDAK MEMILIKI IZIN',
+    'dont_have_permission_to_access_on_this_server' => "ANDA TIDAK MEMILIKI IZIN UNTUK MENGAKSES PADA SERVER INI.",
+    'back_to_home' => 'Kembali ke Halaman Utama',
 
     // => SETTING
     // Users

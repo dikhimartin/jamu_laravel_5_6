@@ -54,45 +54,47 @@
                 </li>
 
                 <!--SETTING MODUL-->
-                @if ($user->can('users-list') || $user->can('role-list') )
+                @if ($user->can('users-list') || $user->can('roles-list') || $user->can('group_user-list') )
                     <li>
                         <a class="has-arrow waves-effect" href="javascript:void(0)" aria-expanded="false"><i class="fa fa-cog" aria-hidden="true"></i></i>&nbsp;<span class="hide-menu">{{ __('main.setting') }}</span>
                         </a>
                         <ul id="setting_expand" aria-expanded="false" class="collapse">
-                            <li id="users_privilege"> 
-                                <a class="has-arrow" href="javascript:void:0" aria-expanded="false">
-                                    <i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;{{__('main.user_access')}}
-                                </a>
-                                <ul aria-expanded="false" class="collapse">
-                                    
-                                    @if ($user->can('users-list'))
-                                         <li class="hover {!! trim($__env->yieldContent('sidebarActive')) == 'users' ? ' active' : '' !!}">
-                                            <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( 'admin/users' ))}}">
-                                                <span class="menu-text"><i class="fa fa-angle-double-right" aria-hidden="true"></i>&nbsp;{{ __('main.user_list') }}</span>
-                                            </a>
-                                        </li>
-                                    @endif
+                            @if ($user->can('users-list') || $user->can('roles-list') || $user->can('group_user-list') )
+                                <li id="users_privilege"> 
+                                    <a class="has-arrow" href="javascript:void:0" aria-expanded="false">
+                                        <i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;{{__('main.user_access')}}
+                                    </a>
+                                    <ul aria-expanded="false" class="collapse">
+                                        
+                                        @if ($user->can('users-list'))
+                                             <li class="hover {!! trim($__env->yieldContent('sidebarActive')) == 'users' ? ' active' : '' !!}">
+                                                <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( 'admin/users' ))}}">
+                                                    <span class="menu-text"><i class="fa fa-angle-double-right" aria-hidden="true"></i>&nbsp;{{ __('main.user_list') }}</span>
+                                                </a>
+                                            </li>
+                                        @endif
 
-                                    @if ($user->can('group_user-list'))
-                                         <li class="hover {!! trim($__env->yieldContent('sidebarActive')) == 'group_user' ? ' active' : '' !!}">
-                                            <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( 'admin/group_user' ))}}">
-                                                <span class="menu-text"><i class="fa fa-angle-double-right" aria-hidden="true"></i>&nbsp;{{ __('main.group_user') }}</span>
-                                            </a>
-                                        </li>
-                                    @endif
+                                        @if ($user->can('group_user-list'))
+                                             <li class="hover {!! trim($__env->yieldContent('sidebarActive')) == 'group_user' ? ' active' : '' !!}">
+                                                <a href="{{ LaravelLocalization::getLocalizedURL(LaravelLocalization::getCurrentLocale(),URL::to( 'admin/group_user' ))}}">
+                                                    <span class="menu-text"><i class="fa fa-angle-double-right" aria-hidden="true"></i>&nbsp;{{ __('main.group_user') }}</span>
+                                                </a>
+                                            </li>
+                                        @endif
 
-                                    @if ($user->can('role-list'))
-                                         <li class="hover {!! trim($__env->yieldContent('sidebarActive')) == 'setting' ? ' active' : '' !!}">
-                                            <a href="{{ route('roles.index') }}">
-                                                <span class="menu-text"><i class="fa fa-angle-double-right" aria-hidden="true"></i>&nbsp;{{ __('main.user_role') }}</span>
-                                            </a>
-                                        </li>
-                                    @endif
-                                   
+                                        @if ($user->can('roles-list'))
+                                             <li class="hover {!! trim($__env->yieldContent('sidebarActive')) == 'setting' ? ' active' : '' !!}">
+                                                <a href="{{ route('roles.index') }}">
+                                                    <span class="menu-text"><i class="fa fa-angle-double-right" aria-hidden="true"></i>&nbsp;{{ __('main.user_role') }}</span>
+                                                </a>
+                                            </li>
+                                        @endif
+                                       
 
 
-                                </ul>
-                            </li>
+                                    </ul>
+                                </li>
+                            @endif
                         </ul>
                     </li>
                 @endif

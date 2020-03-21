@@ -24,16 +24,41 @@ class RoleController extends Controller
 
     public function index(Request $request){
 
-        $controller =$this->controller;
-        $page_active ="roles";
-        $pages_title =$this->title();
-        $roles = Role::orderBy('id','DESC')->paginate(5);
+        if (!Auth::user()->can($this->controller.'-list')){
+            return view('backend.errors.403')->with(['url' => '/admin']);
+        }
 
-        return view('backend.role_index',compact('roles','pages_title','page_active','controller'))
+        // Filter Data
+        $field_filter       = $request->get('field_filter');
+        $operator_filter    = $request->get('operator_filter');
+        $text_filter        = $request->get('text_filter');
+
+
+        $controller  = $this->controller;
+        $page_active = "roles";
+        $pages_title = $this->title();
+
+        $role = new Role;
+        $datas = $role->get_data();
+        if ($text_filter !== false && $operator_filter == "LIKE"){
+            $datas->where('roles.'.$field_filter.'','LIKE','%'.$text_filter.'%');        
+        }else if ($text_filter !== false && $operator_filter == "="){
+            $datas->where('roles.'.$field_filter.'', '=', "".$text_filter."");      
+        }
+
+        $datas->orderBy('id','DESC');
+        $roles = $datas->paginate(10);
+
+        return view('backend.role_index',compact('roles','pages_title','page_active','controller', 'text_filter', 'operator_filter', 'field_filter'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
 
     public function create(){
+
+        if (!Auth::user()->can($this->controller.'-create')){
+            return view('backend.errors.403')->with(['url' => '/admin']);
+        }
+
         $controller =$this->controller;
         $pages_title =$this->title();
         $permission = Permission::orderBy('urutan','ASC')->get();
@@ -54,6 +79,11 @@ class RoleController extends Controller
     }
 
     public function store(Request $request){
+
+        if (!Auth::user()->can($this->controller.'-create')){
+            return view('backend.errors.403')->with(['url' => '/admin']);
+        }
+
         $this->validate($request, [
             'name'          => 'required|unique:roles,name',
             'display_name'  => 'required',
@@ -78,10 +108,15 @@ class RoleController extends Controller
     }
 
     public function edit($id){
-        $controller=$this->controller;
-        $page_active ="roles";
-        $pages_title =$this->title();
-        $page_active ="roles";
+
+        if (!Auth::user()->can($this->controller.'-edit')){
+            return view('backend.errors.403')->with(['url' => '/admin']);
+        }
+
+        $controller     = $this->controller;
+        $page_active    = "roles";
+        $pages_title    = $this->title();
+        $page_active    = "roles";
         $role = Role::find($id);
         // $permission = Permission::get();
         $permission = Permission::orderBy('urutan','ASC')->get();
@@ -102,6 +137,11 @@ class RoleController extends Controller
     }
 
     public function update(Request $request, $id){
+
+        if (!Auth::user()->can($this->controller.'-edit')){
+            return view('backend.errors.403')->with(['url' => '/admin']);
+        }        
+
         $this->validate($request, [
             'display_name'  => 'required',
             'description'   => 'required',
@@ -111,6 +151,7 @@ class RoleController extends Controller
 
         $role               = Role::find($id);
         $role->display_name = $request->input('display_name');
+        $role->status       = $request->input('status');
         $role->description  = $request->input('description');
         $role->save();
 
@@ -126,6 +167,11 @@ class RoleController extends Controller
     }
 
     public function change_status_active($id){
+
+        if (!Auth::user()->can($this->controller.'-edit')){
+            return json_encode("error_403");
+        }    
+
         $pk = Role::find($id);
         $pk->status = "Y";
         $pk->save();
@@ -137,10 +183,15 @@ class RoleController extends Controller
             )
 
         );
-        echo json_encode($result);
+        return json_encode($result);
     }
 
     public function change_status_inactive($id){
+
+        if (!Auth::user()->can($this->controller.'-edit')){
+            return json_encode("error_403");
+        }    
+
         $pk = Role::find($id);
         $pk->status = "N";
         $pk->save();
@@ -151,10 +202,15 @@ class RoleController extends Controller
                 "message"=> __('main.data_inactive')
             )
         );
-        echo json_encode($result);
+        return json_encode($result);
     }
 
     public function delete(Request $request){
+
+        if (!Auth::user()->can($this->controller.'-delete')){
+            return json_encode("error_403");
+        }    
+
         $pk = Role::find($request->id);
         $pk->delete();
         $result=array(
@@ -164,10 +220,15 @@ class RoleController extends Controller
                     "message"=> __('main.data_succesfully_deleted')
                 )
             );
-        echo json_encode($result);
+        return json_encode($result);
     }
 
     public function delete_all($id){
+
+        if (!Auth::user()->can($this->controller.'-delete')){
+            return json_encode("error_403");
+        }    
+
         DB::table("roles")->whereIn('id',explode(",",$id))->delete();
         $result=array(
                 "data_post"=>array(
@@ -176,11 +237,14 @@ class RoleController extends Controller
                     "message"=> __('main.data_succesfully_deleted')
                 )
             );
-        echo json_encode($result);
+        return json_encode($result);
     }
 
     public function get_roles_byid(Request $request){
 
+        if (!Auth::user()->can($this->controller.'-list')){
+            return json_encode("error_403");
+        }    
         $id = $request->id;
         $data_role = Role::find($id);
         $data_rolePermissions = Permission::join("permission_role","permission_role.permission_id","=","permissions.id")

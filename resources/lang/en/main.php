@@ -51,6 +51,10 @@ return [
     'warning_password' => 'Please fill in the password first',
     'wrong_password' => 'Your password is incorrect',
     'data_has_been_changed' => 'Your data has been successfully changed',
+    'page_not_found' => 'PAGE NOT FOUND !',
+    'dont_have_permission' => "YOU DON'T HAVE PERMISSION",
+    'dont_have_permission_to_access_on_this_server' => "YOU DON'T HAVE PERMISSION TO ACCESS ON THIS SERVER.",
+    'back_to_home' => 'Back To Home',
 
 
     // => SETTING
