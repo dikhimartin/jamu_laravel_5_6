@@ -11,7 +11,7 @@
  Target Server Version : 50732
  File Encoding         : 65001
 
- Date: 02/12/2020 22:40:03
+ Date: 03/12/2020 18:29:06
 */
 
 SET NAMES utf8mb4;
@@ -110,10 +110,10 @@ CREATE TABLE `ek_permissions`  (
 -- ----------------------------
 -- Records of ek_permissions
 -- ----------------------------
-INSERT INTO `ek_permissions` VALUES (1, 'role-list', 'Role List', 'Role List', 2, '2017-06-21 14:24:23', '2017-06-21 14:24:23');
-INSERT INTO `ek_permissions` VALUES (2, 'role-create', 'Role Add', 'Role Add', 2, '2017-06-21 14:24:23', '2017-06-21 14:24:23');
-INSERT INTO `ek_permissions` VALUES (3, 'role-edit', 'Role Edit', 'Role Edit', 2, '2017-06-21 14:24:23', '2017-06-21 14:24:23');
-INSERT INTO `ek_permissions` VALUES (4, 'role-delete', 'Role Delete', 'Role Delete', 2, '2017-06-21 14:24:23', '2017-06-21 14:24:23');
+INSERT INTO `ek_permissions` VALUES (1, 'roles-list', 'Role List', 'Role List', 2, '2017-06-21 14:24:23', '2017-06-21 14:24:23');
+INSERT INTO `ek_permissions` VALUES (2, 'roles-create', 'Role Add', 'Role Add', 2, '2017-06-21 14:24:23', '2017-06-21 14:24:23');
+INSERT INTO `ek_permissions` VALUES (3, 'roles-edit', 'Role Edit', 'Role Edit', 2, '2017-06-21 14:24:23', '2017-06-21 14:24:23');
+INSERT INTO `ek_permissions` VALUES (4, 'roles-delete', 'Role Delete', 'Role Delete', 2, '2017-06-21 14:24:23', '2017-06-21 14:24:23');
 INSERT INTO `ek_permissions` VALUES (5, 'users-list', 'Users List', 'users list', 1, '2017-06-22 07:00:00', '2017-06-22 07:00:00');
 INSERT INTO `ek_permissions` VALUES (6, 'users-create', 'Users Create', 'users create', 1, '2017-06-22 07:00:00', '2017-06-22 07:00:00');
 INSERT INTO `ek_permissions` VALUES (7, 'users-edit', 'Users Edit', 'users edit', 1, '2017-06-22 07:00:00', '2017-06-22 07:00:00');
