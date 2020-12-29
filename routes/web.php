@@ -18,7 +18,6 @@ Route::group(array('prefix' => LaravelLocalization::setLocale() . '/admin', 'nam
 	 | MODUL SETTING
 	 |--------------------------------------------------------------------------
 	*/
-
 	// Profile & Setting
 	Route::get('/my_profile','SettingController@my_profile');
 	Route::post('/check_username','SettingController@check_username');

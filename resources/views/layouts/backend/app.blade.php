@@ -273,7 +273,7 @@
         }
 
         var dt   = new Date();
-        var data = ''+dt.getFullYear()+' &copy; PHP | Laravel Framework 5.6 | '+
+        var data = ''+dt.getFullYear()+' &copy; {{ config('app.name', 'Laravel') }} '+ 
                     '<a href="http://dikhimartin.com/" class="m-link">'+
                         'Dikhi Martin'+
                     '</a>';

@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' =>'PHP | Laravel Framework 5.6',
+    'name' => env('APP_NAME'),
 
     /*
     |--------------------------------------------------------------------------
@@ -163,8 +163,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        //terbilang
-        Riskihajar\Terbilang\TerbilangServiceProvider::class,
+
 
         /*
          * Package Service Providers...
@@ -191,8 +190,6 @@ return [
          Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
          PeterColes\Countries\CountriesServiceProvider::class,
 
-         // datatables
-         Yajra\Datatables\DatatablesServiceProvider::class,
          // Full Calended
          MaddHatter\LaravelFullcalendar\ServiceProvider::class,
 
@@ -211,7 +208,6 @@ return [
     */
 
     'aliases' => [
-
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,
@@ -246,7 +242,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
-        'Terbilang' => Riskihajar\Terbilang\Facades\Terbilang::class,
 
         //entrust
         'Entrust'   => Zizaco\Entrust\EntrustFacade::class,
